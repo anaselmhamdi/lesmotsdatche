@@ -1,0 +1,51 @@
+{
+  "id": "test-valid-7x7",
+  "date": "2024-01-15",
+  "language": "fr",
+  "title": "Test Puzzle",
+  "author": "Test Author",
+  "difficulty": 3,
+  "status": "draft",
+  "grid": [
+    [{"type":"letter","solution":"C","number":1},{"type":"letter","solution":"H"},{"type":"letter","solution":"A","number":2},{"type":"letter","solution":"T","number":3},{"type":"block"},{"type":"letter","solution":"M","number":4},{"type":"letter","solution":"O"}],
+    [{"type":"letter","solution":"A"},{"type":"block"},{"type":"letter","solution":"R","number":5},{"type":"letter","solution":"I"},{"type":"letter","solution":"Z"},{"type":"letter","solution":"E"},{"type":"letter","solution":"U"}],
+    [{"type":"letter","solution":"F","number":6},{"type":"letter","solution":"E","number":7},{"type":"letter","solution":"U"},{"type":"block"},{"type":"letter","solution":"O","number":8},{"type":"letter","solution":"R"},{"type":"letter","solution":"E"}],
+    [{"type":"letter","solution":"E","number":9},{"type":"letter","solution":"T"},{"type":"block"},{"type":"letter","solution":"L","number":10},{"type":"letter","solution":"I"},{"type":"letter","solution":"T"},{"type":"block"}],
+    [{"type":"block"},{"type":"letter","solution":"E","number":11},{"type":"letter","solution":"A"},{"type":"letter","solution":"U"},{"type":"letter","solution":"X"},{"type":"block"},{"type":"letter","solution":"A","number":12}],
+    [{"type":"letter","solution":"V","number":13},{"type":"block"},{"type":"letter","solution":"N","number":14},{"type":"letter","solution":"E"},{"type":"block"},{"type":"letter","solution":"B","number":15},{"type":"letter","solution":"I"}],
+    [{"type":"letter","solution":"U","number":16},{"type":"letter","solution":"N"},{"type":"letter","solution":"E"},{"type":"block"},{"type":"letter","solution":"A","number":17},{"type":"letter","solution":"S"},{"type":"letter","solution":"E"}]
+  ],
+  "clues": {
+    "across": [
+      {"direction":"across","number":1,"answer":"CHAT","start":{"row":0,"col":0},"length":4},
+      {"direction":"across","number":4,"answer":"MO","start":{"row":0,"col":5},"length":2},
+      {"direction":"across","number":5,"answer":"RIZ","start":{"row":1,"col":2},"length":3},
+      {"direction":"across","number":6,"answer":"FEU","start":{"row":2,"col":0},"length":3},
+      {"direction":"across","number":8,"answer":"ORE","start":{"row":2,"col":4},"length":3},
+      {"direction":"across","number":9,"answer":"ET","start":{"row":3,"col":0},"length":2},
+      {"direction":"across","number":10,"answer":"LIT","start":{"row":3,"col":3},"length":3},
+      {"direction":"across","number":11,"answer":"EAUX","start":{"row":4,"col":1},"length":4},
+      {"direction":"across","number":13,"answer":"VU","start":{"row":5,"col":0},"length":2},
+      {"direction":"across","number":14,"answer":"NE","start":{"row":5,"col":2},"length":2},
+      {"direction":"across","number":15,"answer":"BI","start":{"row":5,"col":5},"length":2},
+      {"direction":"across","number":16,"answer":"UNE","start":{"row":6,"col":0},"length":3},
+      {"direction":"across","number":17,"answer":"ASE","start":{"row":6,"col":4},"length":3}
+    ],
+    "down": [
+      {"direction":"down","number":1,"answer":"CAFE","start":{"row":0,"col":0},"length":4},
+      {"direction":"down","number":2,"answer":"ARU","start":{"row":0,"col":2},"length":3},
+      {"direction":"down","number":3,"answer":"TI","start":{"row":0,"col":3},"length":2},
+      {"direction":"down","number":4,"answer":"MERT","start":{"row":0,"col":5},"length":4},
+      {"direction":"down","number":5,"answer":"ROAN","start":{"row":1,"col":2},"length":4},
+      {"direction":"down","number":7,"answer":"ETE","start":{"row":2,"col":1},"length":3},
+      {"direction":"down","number":8,"answer":"OIXA","start":{"row":2,"col":4},"length":4},
+      {"direction":"down","number":10,"answer":"LUE","start":{"row":3,"col":3},"length":3},
+      {"direction":"down","number":12,"answer":"AIE","start":{"row":4,"col":6},"length":3},
+      {"direction":"down","number":13,"answer":"VU","start":{"row":5,"col":0},"length":2},
+      {"direction":"down","number":15,"answer":"BS","start":{"row":5,"col":5},"length":2}
+    ]
+  },
+  "metadata": {
+    "theme_tags": ["test"]
+  }
+}

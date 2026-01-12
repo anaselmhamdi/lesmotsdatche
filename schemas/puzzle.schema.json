@@ -1,0 +1,212 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lesmotsdatche.app/schemas/puzzle.schema.json",
+  "title": "Puzzle",
+  "description": "A crossword puzzle with grid and clues",
+  "type": "object",
+  "required": ["id", "date", "language", "title", "author", "difficulty", "status", "grid", "clues"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier (UUID)",
+      "minLength": 1
+    },
+    "date": {
+      "type": "string",
+      "description": "Publication date in YYYY-MM-DD format",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "language": {
+      "type": "string",
+      "description": "Language code",
+      "enum": ["fr", "en"]
+    },
+    "title": {
+      "type": "string",
+      "description": "Puzzle title",
+      "minLength": 1
+    },
+    "author": {
+      "type": "string",
+      "description": "Puzzle author",
+      "minLength": 1
+    },
+    "difficulty": {
+      "type": "integer",
+      "description": "Difficulty level 1-5",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "status": {
+      "type": "string",
+      "description": "Publication status",
+      "enum": ["draft", "published", "archived"]
+    },
+    "grid": {
+      "type": "array",
+      "description": "2D grid of cells (rows)",
+      "minItems": 7,
+      "items": {
+        "type": "array",
+        "description": "Row of cells",
+        "minItems": 7,
+        "items": {
+          "$ref": "#/$defs/cell"
+        }
+      }
+    },
+    "clues": {
+      "$ref": "#/$defs/clues"
+    },
+    "metadata": {
+      "$ref": "#/$defs/metadata"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Creation timestamp in RFC3339 format",
+      "format": "date-time"
+    },
+    "published_at": {
+      "type": ["string", "null"],
+      "description": "Publication timestamp in RFC3339 format",
+      "format": "date-time"
+    }
+  },
+  "$defs": {
+    "cell": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["letter", "block"]
+        },
+        "solution": {
+          "type": "string",
+          "description": "Letter A-Z for letter cells",
+          "pattern": "^[A-Z]$"
+        },
+        "number": {
+          "type": "integer",
+          "description": "Clue number if this cell starts an entry",
+          "minimum": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "type": { "const": "letter" } }
+          },
+          "then": {
+            "required": ["solution"]
+          }
+        }
+      ]
+    },
+    "position": {
+      "type": "object",
+      "required": ["row", "col"],
+      "properties": {
+        "row": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "col": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "clue": {
+      "type": "object",
+      "required": ["direction", "number", "answer", "start", "length"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "direction": {
+          "type": "string",
+          "enum": ["across", "down"]
+        },
+        "number": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "prompt": {
+          "type": "string",
+          "description": "The clue text"
+        },
+        "answer": {
+          "type": "string",
+          "description": "Normalized answer (A-Z only)",
+          "pattern": "^[A-Z]+$",
+          "minLength": 2
+        },
+        "original_answer": {
+          "type": "string",
+          "description": "Pre-normalized answer with spaces/hyphens/accents"
+        },
+        "start": {
+          "$ref": "#/$defs/position"
+        },
+        "length": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "reference_tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "reference_year_range": {
+          "type": "array",
+          "items": { "type": "integer" },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "difficulty": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "ambiguity_notes": {
+          "type": "string"
+        }
+      }
+    },
+    "clues": {
+      "type": "object",
+      "required": ["across", "down"],
+      "properties": {
+        "across": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/clue" }
+        },
+        "down": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/clue" }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "theme_tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "reference_tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "notes": {
+          "type": "string"
+        },
+        "freshness_score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        }
+      }
+    }
+  }
+}

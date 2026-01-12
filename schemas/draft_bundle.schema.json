@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lesmotsdatche.app/schemas/draft_bundle.schema.json",
+  "title": "DraftBundle",
+  "description": "A draft puzzle with QA report",
+  "type": "object",
+  "required": ["puzzle", "report"],
+  "properties": {
+    "puzzle": {
+      "$ref": "puzzle.schema.json"
+    },
+    "report": {
+      "$ref": "#/$defs/draft_report"
+    }
+  },
+  "$defs": {
+    "draft_report": {
+      "type": "object",
+      "required": ["fill_score", "clue_score", "freshness_score"],
+      "properties": {
+        "fill_score": {
+          "type": "integer",
+          "description": "Fill quality score 0-100",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "clue_score": {
+          "type": "integer",
+          "description": "Clue quality score 0-100",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "freshness_score": {
+          "type": "integer",
+          "description": "Freshness/modernity score 0-100",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "risk_flags": {
+          "type": "array",
+          "description": "Quality/safety risk flags",
+          "items": {
+            "type": "string",
+            "enum": [
+              "AMBIGUOUS_CLUE",
+              "TOO_MANY_PROPER_NOUNS",
+              "OBSCURE_ENTRY",
+              "TABOO_CONTENT",
+              "LOW_DIVERSITY",
+              "UNVERIFIED_REFERENCE"
+            ]
+          }
+        },
+        "slot_failures": {
+          "type": "array",
+          "description": "Slots that were difficult to fill",
+          "items": {
+            "type": "object",
+            "required": ["pattern", "length", "attempts"],
+            "properties": {
+              "pattern": {
+                "type": "string",
+                "description": "Pattern with wildcards, e.g. A__E"
+              },
+              "length": {
+                "type": "integer",
+                "minimum": 2
+              },
+              "attempts": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
+        },
+        "language_checks": {
+          "type": "object",
+          "properties": {
+            "taboo_hits": {
+              "type": "integer",
+              "description": "Number of taboo word matches",
+              "minimum": 0
+            },
+            "proper_nouns": {
+              "type": "integer",
+              "description": "Number of proper nouns in answers",
+              "minimum": 0
+            },
+            "avg_word_freq": {
+              "type": "number",
+              "description": "Average word frequency score",
+              "minimum": 0
+            }
+          }
+        },
+        "llm_trace_ref": {
+          "type": "string",
+          "description": "Reference to LLM trace log for debugging"
+        }
+      }
+    }
+  }
+}

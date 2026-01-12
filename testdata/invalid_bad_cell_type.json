@@ -1,0 +1,22 @@
+{
+  "id": "test-123",
+  "date": "2024-01-15",
+  "language": "fr",
+  "title": "Test Puzzle",
+  "author": "Test Author",
+  "difficulty": 3,
+  "status": "draft",
+  "grid": [
+    [{"type":"letter","solution":"A"},{"type":"letter","solution":"B"},{"type":"letter","solution":"C"},{"type":"letter","solution":"D"},{"type":"letter","solution":"E"},{"type":"letter","solution":"F"},{"type":"letter","solution":"G"}],
+    [{"type":"letter","solution":"H"},{"type":"invalid","solution":"I"},{"type":"letter","solution":"J"},{"type":"letter","solution":"K"},{"type":"letter","solution":"L"},{"type":"letter","solution":"M"},{"type":"letter","solution":"N"}],
+    [{"type":"letter","solution":"O"},{"type":"letter","solution":"P"},{"type":"letter","solution":"Q"},{"type":"letter","solution":"R"},{"type":"letter","solution":"S"},{"type":"letter","solution":"T"},{"type":"letter","solution":"U"}],
+    [{"type":"letter","solution":"V"},{"type":"letter","solution":"W"},{"type":"letter","solution":"X"},{"type":"letter","solution":"Y"},{"type":"letter","solution":"Z"},{"type":"letter","solution":"A"},{"type":"letter","solution":"B"}],
+    [{"type":"letter","solution":"C"},{"type":"letter","solution":"D"},{"type":"letter","solution":"E"},{"type":"letter","solution":"F"},{"type":"letter","solution":"G"},{"type":"letter","solution":"H"},{"type":"letter","solution":"I"}],
+    [{"type":"letter","solution":"J"},{"type":"letter","solution":"K"},{"type":"letter","solution":"L"},{"type":"letter","solution":"M"},{"type":"letter","solution":"N"},{"type":"letter","solution":"O"},{"type":"letter","solution":"P"}],
+    [{"type":"letter","solution":"Q"},{"type":"letter","solution":"R"},{"type":"letter","solution":"S"},{"type":"letter","solution":"T"},{"type":"letter","solution":"U"},{"type":"letter","solution":"V"},{"type":"letter","solution":"W"}]
+  ],
+  "clues": {
+    "across": [],
+    "down": []
+  }
+}
