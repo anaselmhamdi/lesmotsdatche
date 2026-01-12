@@ -1,0 +1,10 @@
+{
+  "description": "Expected numbering output for small_5x5_grid.json",
+  "grid": [
+    [{"type":"letter","solution":"C","number":1},{"type":"letter","solution":"H"},{"type":"letter","solution":"A","number":2},{"type":"letter","solution":"T","number":3},{"type":"block"}],
+    [{"type":"letter","solution":"A"},{"type":"block"},{"type":"letter","solution":"R","number":4},{"type":"letter","solution":"I"},{"type":"letter","solution":"Z","number":5}],
+    [{"type":"letter","solution":"F","number":6},{"type":"letter","solution":"E","number":7},{"type":"letter","solution":"U"},{"type":"block"},{"type":"letter","solution":"O"}],
+    [{"type":"letter","solution":"E","number":8},{"type":"letter","solution":"T"},{"type":"block"},{"type":"letter","solution":"M","number":9},{"type":"letter","solution":"O"}],
+    [{"type":"block"},{"type":"letter","solution":"E","number":10},{"type":"letter","solution":"A"},{"type":"letter","solution":"U"},{"type":"block"}]
+  ]
+}

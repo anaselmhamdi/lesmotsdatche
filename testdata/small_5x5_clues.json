@@ -1,0 +1,19 @@
+{
+  "description": "Expected extracted clues for small_5x5_numbered.json",
+  "across": [
+    {"number": 1, "answer": "CHAT", "start": {"row": 0, "col": 0}, "length": 4},
+    {"number": 4, "answer": "RIZ", "start": {"row": 1, "col": 2}, "length": 3},
+    {"number": 6, "answer": "FEU", "start": {"row": 2, "col": 0}, "length": 3},
+    {"number": 8, "answer": "ET", "start": {"row": 3, "col": 0}, "length": 2},
+    {"number": 9, "answer": "MO", "start": {"row": 3, "col": 3}, "length": 2},
+    {"number": 10, "answer": "EAU", "start": {"row": 4, "col": 1}, "length": 3}
+  ],
+  "down": [
+    {"number": 1, "answer": "CAFE", "start": {"row": 0, "col": 0}, "length": 4},
+    {"number": 2, "answer": "ARU", "start": {"row": 0, "col": 2}, "length": 3},
+    {"number": 3, "answer": "TI", "start": {"row": 0, "col": 3}, "length": 2},
+    {"number": 5, "answer": "ZOO", "start": {"row": 1, "col": 4}, "length": 3},
+    {"number": 7, "answer": "ETE", "start": {"row": 2, "col": 1}, "length": 3},
+    {"number": 9, "answer": "MU", "start": {"row": 3, "col": 3}, "length": 2}
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "description": "Simple 5x5 test grid for numbering and extraction tests",
+  "grid": [
+    [{"type":"letter","solution":"C"},{"type":"letter","solution":"H"},{"type":"letter","solution":"A"},{"type":"letter","solution":"T"},{"type":"block"}],
+    [{"type":"letter","solution":"A"},{"type":"block"},{"type":"letter","solution":"R"},{"type":"letter","solution":"I"},{"type":"letter","solution":"Z"}],
+    [{"type":"letter","solution":"F"},{"type":"letter","solution":"E"},{"type":"letter","solution":"U"},{"type":"block"},{"type":"letter","solution":"O"}],
+    [{"type":"letter","solution":"E"},{"type":"letter","solution":"T"},{"type":"block"},{"type":"letter","solution":"M"},{"type":"letter","solution":"O"}],
+    [{"type":"block"},{"type":"letter","solution":"E"},{"type":"letter","solution":"A"},{"type":"letter","solution":"U"},{"type":"block"}]
+  ]
+}
