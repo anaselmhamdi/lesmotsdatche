@@ -11,14 +11,19 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/joho/godotenv"
+
 	"lesmotsdatche/internal/api"
 	"lesmotsdatche/internal/store"
 )
 
 func main() {
+	// Load .env file if present
+	_ = godotenv.Load()
+
 	var (
-		addr   = flag.String("addr", ":8080", "HTTP server address")
-		dbPath = flag.String("db", "puzzles.db", "SQLite database path")
+		addr   = flag.String("addr", envOr("PORT", ":8080"), "HTTP server address")
+		dbPath = flag.String("db", envOr("DATABASE_PATH", "puzzles.db"), "SQLite database path")
 	)
 	flag.Parse()
 
@@ -78,4 +83,11 @@ func main() {
 	}
 
 	logger.Info("server stopped")
+}
+
+func envOr(key, fallback string) string {
+	if v := os.Getenv(key); v != "" {
+		return v
+	}
+	return fallback
 }

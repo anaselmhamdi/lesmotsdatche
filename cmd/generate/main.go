@@ -9,6 +9,8 @@ import (
 	"os"
 	"time"
 
+	"github.com/joho/godotenv"
+
 	"lesmotsdatche/internal/generator"
 	"lesmotsdatche/internal/generator/fill"
 	"lesmotsdatche/internal/generator/languagepack"
@@ -17,6 +19,9 @@ import (
 )
 
 func main() {
+	// Load .env file if present (silently ignore if not found)
+	_ = godotenv.Load()
+
 	// Parse flags
 	date := flag.String("date", time.Now().Format("2006-01-02"), "Target date (YYYY-MM-DD)")
 	language := flag.String("lang", "fr", "Language code (fr, en)")
