@@ -27,10 +27,12 @@ func NewAdminHandler(s store.Store, orch *generator.Orchestrator) *AdminHandler 
 
 // GenerateRequest is the request body for puzzle generation.
 type GenerateRequest struct {
-	Date        string   `json:"date"`
-	Language    string   `json:"language"`
-	Difficulty  int      `json:"difficulty"`
-	AvoidThemes []string `json:"avoid_themes,omitempty"`
+	Date         string   `json:"date"`
+	Language     string   `json:"language"`
+	Difficulty   int      `json:"difficulty"`
+	GridRows     int      `json:"grid_rows,omitempty"`     // Grid rows (10-16, default: 13)
+	GridCols     int      `json:"grid_cols,omitempty"`     // Grid columns (10-16, default: 13)
+	AvoidThemes  []string `json:"avoid_themes,omitempty"`
 	PreferTopics []string `json:"prefer_topics,omitempty"`
 }
 
@@ -62,6 +64,8 @@ func (h *AdminHandler) GeneratePuzzle(w http.ResponseWriter, r *http.Request) {
 	genReq := generator.GenerateRequest{
 		Date:     req.Date,
 		Language: req.Language,
+		GridRows: req.GridRows,
+		GridCols: req.GridCols,
 		Constraints: theme.ThemeConstraints{
 			AvoidThemes:  req.AvoidThemes,
 			PreferTopics: req.PreferTopics,

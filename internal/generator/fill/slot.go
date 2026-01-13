@@ -48,6 +48,23 @@ func (s *Slot) IsFilled(grid [][]rune) bool {
 	return true
 }
 
+// ExtractWord extracts the word from this slot in the grid.
+// Returns empty string if the slot is not fully filled.
+func (s *Slot) ExtractWord(grid [][]rune) string {
+	word := make([]rune, s.Length)
+	for i, pos := range s.Cells {
+		if pos.Row >= len(grid) || pos.Col >= len(grid[pos.Row]) {
+			return ""
+		}
+		c := grid[pos.Row][pos.Col]
+		if c == 0 || c == '.' || c == '#' {
+			return ""
+		}
+		word[i] = c
+	}
+	return string(word)
+}
+
 // DiscoverSlots finds all slots in a grid template.
 // The grid should have blocks marked and letter cells empty or with existing letters.
 func DiscoverSlots(grid [][]domain.Cell) []Slot {

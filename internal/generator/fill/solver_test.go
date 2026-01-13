@@ -333,3 +333,121 @@ func TestGridToTemplate(t *testing.T) {
 		t.Error("expected block cell")
 	}
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Dead Block Detection Tests
+// ─────────────────────────────────────────────────────────────────────────────
+
+func TestAnalyzeDeadBlocks_NoBlocks(t *testing.T) {
+	template := [][]domain.Cell{
+		{{Type: domain.CellTypeLetter}, {Type: domain.CellTypeLetter}},
+		{{Type: domain.CellTypeLetter}, {Type: domain.CellTypeLetter}},
+	}
+
+	report := AnalyzeDeadBlocks(template)
+
+	if report.TotalBlocks != 0 {
+		t.Errorf("expected 0 blocks, got %d", report.TotalBlocks)
+	}
+	if report.MaxConsecutiveRow != 0 {
+		t.Errorf("expected max consecutive row 0, got %d", report.MaxConsecutiveRow)
+	}
+}
+
+func TestAnalyzeDeadBlocks_ConsecutiveRow(t *testing.T) {
+	// 3 consecutive blocks in row
+	template := [][]domain.Cell{
+		{{Type: domain.CellTypeBlock}, {Type: domain.CellTypeBlock}, {Type: domain.CellTypeBlock}, {Type: domain.CellTypeLetter}},
+		{{Type: domain.CellTypeLetter}, {Type: domain.CellTypeLetter}, {Type: domain.CellTypeLetter}, {Type: domain.CellTypeLetter}},
+	}
+
+	report := AnalyzeDeadBlocks(template)
+
+	if report.MaxConsecutiveRow != 3 {
+		t.Errorf("expected max consecutive row 3, got %d", report.MaxConsecutiveRow)
+	}
+	if report.TotalBlocks != 3 {
+		t.Errorf("expected 3 blocks, got %d", report.TotalBlocks)
+	}
+}
+
+func TestAnalyzeDeadBlocks_ConsecutiveCol(t *testing.T) {
+	// 3 consecutive blocks in column
+	template := [][]domain.Cell{
+		{{Type: domain.CellTypeBlock}, {Type: domain.CellTypeLetter}},
+		{{Type: domain.CellTypeBlock}, {Type: domain.CellTypeLetter}},
+		{{Type: domain.CellTypeBlock}, {Type: domain.CellTypeLetter}},
+		{{Type: domain.CellTypeLetter}, {Type: domain.CellTypeLetter}},
+	}
+
+	report := AnalyzeDeadBlocks(template)
+
+	if report.MaxConsecutiveCol != 3 {
+		t.Errorf("expected max consecutive col 3, got %d", report.MaxConsecutiveCol)
+	}
+}
+
+func TestAnalyzeDeadBlocks_Cluster(t *testing.T) {
+	// 2x2 block cluster
+	template := [][]domain.Cell{
+		{{Type: domain.CellTypeBlock}, {Type: domain.CellTypeBlock}, {Type: domain.CellTypeLetter}},
+		{{Type: domain.CellTypeBlock}, {Type: domain.CellTypeBlock}, {Type: domain.CellTypeLetter}},
+		{{Type: domain.CellTypeLetter}, {Type: domain.CellTypeLetter}, {Type: domain.CellTypeLetter}},
+	}
+
+	report := AnalyzeDeadBlocks(template)
+
+	if report.LargestCluster != 4 {
+		t.Errorf("expected largest cluster 4, got %d", report.LargestCluster)
+	}
+	// Verify bounds
+	if report.LargestClusterBounds[2] != 2 || report.LargestClusterBounds[3] != 2 {
+		t.Errorf("expected 2x2 cluster, got %dx%d",
+			report.LargestClusterBounds[2], report.LargestClusterBounds[3])
+	}
+}
+
+func TestValidateBlockPattern_Pass(t *testing.T) {
+	// Sparse blocks - should pass
+	template := [][]domain.Cell{
+		{{Type: domain.CellTypeLetter}, {Type: domain.CellTypeBlock}, {Type: domain.CellTypeLetter}, {Type: domain.CellTypeLetter}},
+		{{Type: domain.CellTypeLetter}, {Type: domain.CellTypeLetter}, {Type: domain.CellTypeLetter}, {Type: domain.CellTypeBlock}},
+		{{Type: domain.CellTypeBlock}, {Type: domain.CellTypeLetter}, {Type: domain.CellTypeLetter}, {Type: domain.CellTypeLetter}},
+		{{Type: domain.CellTypeLetter}, {Type: domain.CellTypeLetter}, {Type: domain.CellTypeBlock}, {Type: domain.CellTypeLetter}},
+	}
+
+	violations := ValidateBlockPattern(template, 2, 4)
+
+	if len(violations) != 0 {
+		t.Errorf("expected no violations, got: %v", violations)
+	}
+}
+
+func TestValidateBlockPattern_Fail_Consecutive(t *testing.T) {
+	// 3 consecutive blocks - should fail with maxConsecutive=2
+	template := [][]domain.Cell{
+		{{Type: domain.CellTypeBlock}, {Type: domain.CellTypeBlock}, {Type: domain.CellTypeBlock}, {Type: domain.CellTypeLetter}},
+		{{Type: domain.CellTypeLetter}, {Type: domain.CellTypeLetter}, {Type: domain.CellTypeLetter}, {Type: domain.CellTypeLetter}},
+	}
+
+	violations := ValidateBlockPattern(template, 2, 10)
+
+	if len(violations) == 0 {
+		t.Error("expected violations for consecutive blocks")
+	}
+}
+
+func TestValidateBlockPattern_Fail_Cluster(t *testing.T) {
+	// 2x3 cluster (6 blocks) - should fail with maxCluster=4
+	template := [][]domain.Cell{
+		{{Type: domain.CellTypeBlock}, {Type: domain.CellTypeBlock}, {Type: domain.CellTypeBlock}, {Type: domain.CellTypeLetter}},
+		{{Type: domain.CellTypeBlock}, {Type: domain.CellTypeBlock}, {Type: domain.CellTypeBlock}, {Type: domain.CellTypeLetter}},
+		{{Type: domain.CellTypeLetter}, {Type: domain.CellTypeLetter}, {Type: domain.CellTypeLetter}, {Type: domain.CellTypeLetter}},
+	}
+
+	violations := ValidateBlockPattern(template, 10, 4)
+
+	if len(violations) == 0 {
+		t.Error("expected violations for large cluster")
+	}
+}

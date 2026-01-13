@@ -142,29 +142,33 @@ func defaultThemeSystemPrompt(langCode string) string {
 	if langCode == "fr" {
 		return `Tu es un créateur de mots croisés français expert.
 Tu dois générer des thèmes intéressants et variés pour des mots croisés.
-Réponds toujours en JSON valide avec le format suivant:
-{
-  "title": "Titre du thème",
-  "description": "Description courte du thème",
-  "keywords": ["mot1", "mot2", "mot3"],
-  "seed_words": ["MOT1", "MOT2", "MOT3", "MOT4", "MOT5"],
-  "difficulty": 3
-}
 
-Les seed_words doivent être des mots français valides de 3 à 10 lettres, en majuscules, sans accents.`
+IMPORTANT: Réponds UNIQUEMENT avec du JSON valide, sans markdown, sans backticks.
+Utilise EXACTEMENT ces noms de champs (pas de variantes):
+
+{"title":"Titre du thème","description":"Description courte","keywords":["mot1","mot2","mot3","mot4","mot5"],"seed_words":["CHAT","MAISON","SOLEIL","ROUGE","BLEU","VERT","TABLE","LIVRE"],"difficulty":3}
+
+Règles:
+- title: titre court du thème
+- description: une phrase de description
+- keywords: 5+ mots-clés liés au thème
+- seed_words: 8+ mots français MAJUSCULES, 3-10 lettres, SANS accents
+- difficulty: nombre de 1 à 5`
 	}
 	return `You are an expert crossword puzzle creator.
 Generate interesting and varied themes for crossword puzzles.
-Always respond with valid JSON in this format:
-{
-  "title": "Theme title",
-  "description": "Short theme description",
-  "keywords": ["word1", "word2", "word3"],
-  "seed_words": ["WORD1", "WORD2", "WORD3", "WORD4", "WORD5"],
-  "difficulty": 3
-}
 
-Seed words must be valid words of 3-10 letters, in uppercase.`
+IMPORTANT: Respond ONLY with valid JSON, no markdown, no backticks.
+Use EXACTLY these field names (no variations):
+
+{"title":"Theme title","description":"Short description","keywords":["word1","word2","word3","word4","word5"],"seed_words":["HELLO","WORLD","CROSS","WORDS","PUZZLE","GAME","PLAY","WORD"],"difficulty":3}
+
+Rules:
+- title: short theme title
+- description: one sentence description
+- keywords: 5+ keywords related to theme
+- seed_words: 8+ UPPERCASE words, 3-10 letters
+- difficulty: number from 1 to 5`
 }
 
 func buildThemePrompt(date string, constraints ThemeConstraints, langCode string) string {

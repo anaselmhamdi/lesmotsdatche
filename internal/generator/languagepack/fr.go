@@ -79,60 +79,36 @@ var frenchTabooList = []string{
 }
 
 // French prompt templates
-var frenchThemePrompt = `Tu es un expert en création de mots croisés français modernes.
+var frenchThemePrompt = `Tu es un expert en création de mots croisés français.
 
-Génère un thème original et une liste de mots candidats pour une grille de mots croisés.
+Génère un thème et des mots pour une grille de mots croisés.
 
-Contraintes:
-- Le thème doit être moderne et culturellement pertinent (2018-aujourd'hui)
-- Les mots doivent être en français, variés en longueur (3-15 lettres)
-- Inclure un mélange de: noms communs, verbes, expressions, références culturelles
-- Éviter: les mots trop obscurs, les termes offensants, les noms propres peu connus
+IMPORTANT: Réponds UNIQUEMENT en JSON valide, sans backticks ni markdown.
+Utilise EXACTEMENT ce format:
 
-Format de réponse JSON:
-{
-  "theme_title": "titre du thème",
-  "theme_description": "description courte",
-  "theme_tags": ["tag1", "tag2"],
-  "candidates": [
-    {
-      "answer": "MOT",
-      "reference_tags": ["catégorie"],
-      "reference_year_range": [2020, 2024],
-      "difficulty": 2,
-      "notes": "contexte optionnel"
-    }
-  ]
-}
+{"title":"Le Cinéma Français","description":"Films et acteurs du cinéma français","keywords":["FILM","ACTEUR","CINEMA","SCENE","ECRAN"],"seed_words":["CINEMA","ACTEUR","SCENE","CAMERA","STUDIO","FILM","ROLE","STAR"],"difficulty":3}
 
-Génère 30-50 candidats variés.`
+Règles:
+- title: titre court du thème (2-5 mots)
+- description: une phrase descriptive
+- keywords: 5+ mots-clés en MAJUSCULES
+- seed_words: 8+ mots français en MAJUSCULES, 3-10 lettres, SANS accents
+- difficulty: 1 (facile) à 5 (expert)
+
+Les seed_words doivent être des mots français courants liés au thème.`
 
 var frenchSlotPrompt = `Tu es un expert en vocabulaire français pour mots croisés.
 
-Trouve des mots français correspondant au pattern suivant:
-- Pattern: {{.Pattern}} (les points représentent des lettres inconnues)
-- Longueur: {{.Length}} lettres
-- Tags souhaités: {{.Tags}}
-- Difficulté cible: {{.Difficulty}}/5
+IMPORTANT: Réponds UNIQUEMENT en JSON valide, sans backticks ni markdown.
 
-Contraintes:
-- Mots français courants ou modernes
-- Pas de noms propres obscurs
-- Pas de termes offensants
+Format EXACT à utiliser:
+{"candidates":[{"word":"MAISON","score":0.8,"difficulty":2,"is_thematic":true},{"word":"TABLE","score":0.5,"difficulty":1,"is_thematic":false}]}
 
-Format JSON:
-{
-  "candidates": [
-    {
-      "answer": "MOT",
-      "tags": ["catégorie"],
-      "year_range": [2020, 2024],
-      "difficulty": 2
-    }
-  ]
-}
-
-Propose 5-10 candidats.`
+Règles pour les mots:
+- MAJUSCULES uniquement
+- SANS accents (E pas É, A pas À)
+- SANS espaces ni tirets
+- Mots français courants de 2-15 lettres`
 
 var frenchCluePrompt = `Tu es un cruciverbiste expert en français.
 

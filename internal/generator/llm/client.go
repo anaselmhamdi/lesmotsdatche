@@ -100,12 +100,19 @@ func (c *ValidatingClient) CompleteWithValidation(ctx context.Context, req Reque
 
 		c.recordTrace(req, *resp, "", attempt)
 
+		// Check for empty response
+		if resp.Content == "" {
+			lastError = fmt.Errorf("empty response from LLM (finish_reason: %s)", resp.FinishReason)
+			continue
+		}
+
 		// Extract JSON from response (handle markdown code blocks)
 		jsonContent := extractJSON(resp.Content)
 
 		// Try to unmarshal
 		if err := json.Unmarshal([]byte(jsonContent), target); err != nil {
-			lastError = fmt.Errorf("JSON parse error: %w", err)
+			lastError = fmt.Errorf("JSON parse error: %w (response length: %d, content: %s)",
+				err, len(resp.Content), truncate(resp.Content, 200))
 			req.Prompt = fmt.Sprintf(c.config.RepairPrompt, lastError.Error(), truncate(resp.Content, 500))
 			continue
 		}

@@ -4,11 +4,13 @@ package domain
 import "time"
 
 // CellType represents the type of a cell in the grid.
+// Supports both "mots croisés" (traditional) and "mots fléchés" (arrow words) formats.
 type CellType string
 
 const (
-	CellTypeLetter CellType = "letter"
-	CellTypeBlock  CellType = "block"
+	CellTypeLetter CellType = "letter" // Cell for user to fill in a letter
+	CellTypeBlock  CellType = "block"  // Black/blocked cell
+	CellTypeClue   CellType = "clue"   // Clue cell with definition text (mots fléchés)
 )
 
 // Direction represents the direction of a clue entry.
@@ -35,10 +37,14 @@ type Position struct {
 }
 
 // Cell represents a single cell in the crossword grid.
+// For mots fléchés, clue cells contain definitions with arrow directions.
+// Split cells can have both clue_across and clue_down for two definitions.
 type Cell struct {
-	Type     CellType `json:"type"`
-	Solution string   `json:"solution,omitempty"` // A-Z for letter cells
-	Number   int      `json:"number,omitempty"`   // Clue number if this cell starts an entry
+	Type       CellType `json:"type"`
+	Solution   string   `json:"solution,omitempty"`    // A-Z for letter cells
+	Number     int      `json:"number,omitempty"`      // Clue number if this cell starts an entry
+	ClueAcross string   `json:"clue_across,omitempty"` // Definition for across direction (→)
+	ClueDown   string   `json:"clue_down,omitempty"`   // Definition for down direction (↓)
 }
 
 // Clue represents a single clue with its answer and metadata.
@@ -176,4 +182,9 @@ func (c *Cell) IsLetter() bool {
 // IsBlock returns true if the cell is a block (black square).
 func (c *Cell) IsBlock() bool {
 	return c.Type == CellTypeBlock
+}
+
+// IsClue returns true if the cell is a clue cell (mots fléchés).
+func (c *Cell) IsClue() bool {
+	return c.Type == CellTypeClue
 }

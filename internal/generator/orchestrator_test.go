@@ -49,18 +49,29 @@ func TestOrchestrator_CreateDefaultTemplate(t *testing.T) {
 	}
 }
 
-func TestOrchestrator_ShouldBeBlock(t *testing.T) {
+func TestOrchestrator_SymmetricBlocks(t *testing.T) {
 	config := DefaultConfig()
-	config.GridSize = [2]int{11, 11}
+	config.GridSize = [2]int{13, 13}
 
 	mock := llm.NewMockClient()
 	validatingClient := llm.NewValidatingClient(mock, llm.DefaultConfig())
 
 	orch := NewOrchestrator(validatingClient, languagepack.NewFrenchPack(), nil, config)
+	template := orch.createDefaultTemplate()
 
 	// Center should never be a block
-	if orch.shouldBeBlock(5, 5, 11, 11) {
+	mid := 6
+	if template[mid][mid].IsBlock() {
 		t.Error("center should not be a block")
+	}
+
+	// Verify 180° rotational symmetry
+	for i := 0; i < 13; i++ {
+		for j := 0; j < 13; j++ {
+			if template[i][j].IsBlock() != template[12-i][12-j].IsBlock() {
+				t.Errorf("symmetry broken at (%d,%d) vs (%d,%d)", i, j, 12-i, 12-j)
+			}
+		}
 	}
 }
 

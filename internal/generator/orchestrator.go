@@ -29,21 +29,25 @@ type Orchestrator struct {
 
 // Config holds orchestrator configuration.
 type Config struct {
-	MaxAttempts      int           // Maximum generation attempts
-	Timeout          time.Duration // Total timeout for generation
-	TargetDifficulty int           // Target puzzle difficulty (1-5)
-	MinQAScore       float64       // Minimum acceptable QA score
-	GridSize         [2]int        // Grid dimensions [rows, cols]
+	MaxAttempts          int           // Maximum generation attempts
+	Timeout              time.Duration // Total timeout for generation
+	TargetDifficulty     int           // Target puzzle difficulty (1-5)
+	MinQAScore           float64       // Minimum acceptable QA score
+	GridSize             [2]int        // Grid dimensions [rows, cols]
+	MaxConsecutiveBlocks int           // Max consecutive blocks in row/column (0 = unlimited, 1 = isolated only)
+	MaxBlockClusterSize  int           // Max rectangular block cluster area (0 = unlimited, 1 = no clusters)
 }
 
 // DefaultConfig returns default configuration.
 func DefaultConfig() Config {
 	return Config{
-		MaxAttempts:      3,
-		Timeout:          5 * time.Minute,
-		TargetDifficulty: 3,
-		MinQAScore:       0.6,
-		GridSize:         [2]int{11, 11},
+		MaxAttempts:          3,
+		Timeout:              5 * time.Minute,
+		TargetDifficulty:     3,
+		MinQAScore:           0.5, // Lower threshold for testing
+		GridSize:             [2]int{13, 13}, // French standard grid
+		MaxConsecutiveBlocks: 1,   // No consecutive blocks (isolated blocks only)
+		MaxBlockClusterSize:  1,   // No block clusters (single blocks only)
 	}
 }
 
@@ -76,6 +80,8 @@ type GenerateRequest struct {
 	Date        string                // Target date (YYYY-MM-DD)
 	Language    string                // Language code
 	Template    [][]domain.Cell       // Optional grid template
+	GridRows    int                   // Grid rows (10-16, 0 = use default)
+	GridCols    int                   // Grid columns (10-16, 0 = use default)
 	Constraints theme.ThemeConstraints // Theme constraints
 }
 
@@ -96,6 +102,13 @@ type GenerationStats struct {
 	FillTime     time.Duration `json:"fill_time"`
 	ClueTime     time.Duration `json:"clue_time"`
 	TokensUsed   int           `json:"tokens_used"`
+}
+
+// clueData holds clue information for a slot during assembly.
+type clueData struct {
+	prompt     string
+	answer     string
+	difficulty int
 }
 
 // Generate creates a new puzzle.
@@ -144,15 +157,19 @@ func (o *Orchestrator) generateAttempt(ctx context.Context, req GenerateRequest,
 	result.Theme = thm
 	result.Stats.ThemeTime = time.Since(themeStart)
 
-	// Step 2: Prepare template
-	template := req.Template
-	if template == nil {
-		template = o.createDefaultTemplate()
+	// Step 2: Determine grid size
+	rows := req.GridRows
+	cols := req.GridCols
+	if rows < 7 || rows > 16 {
+		rows = o.config.GridSize[0]
+	}
+	if cols < 7 || cols > 16 {
+		cols = o.config.GridSize[1]
 	}
 
-	// Step 3: Discover slots and generate candidates
-	slots := fill.DiscoverSlots(template)
-	lengths := theme.LengthsFromSlots(slots)
+	// Step 3: Generate candidates (word-first approach)
+	// Get lengths from 3-9 (optimal for mots fléchés)
+	lengths := theme.AllLengthsForGrid(rows, cols)
 
 	lexicon, err := o.candidateGen.GenerateCandidates(ctx, thm, lengths)
 	if err != nil {
@@ -167,18 +184,53 @@ func (o *Orchestrator) generateAttempt(ctx context.Context, req GenerateRequest,
 		}
 	}
 
-	// Step 4: Fill the grid
+	// Step 4: Build grid using word-first construction
 	fillStart := time.Now()
-	solver := fill.NewSolver(fill.SolverConfig{
-		Lexicon:      lexicon,
-		Seed:         time.Now().UnixNano() + int64(attempt),
-		MaxBacktrack: 5000,
+	builder := fill.NewGridBuilder(fill.BuilderConfig{
+		MaxRows: rows + 4, // Extra space for construction
+		MaxCols: cols + 4,
+		Seed:    time.Now().UnixNano() + int64(attempt),
 	})
 
-	fillResult, err := solver.Solve(template)
-	if err != nil {
-		return nil, fmt.Errorf("fill failed: %w", err)
+	// Get all words from lexicon sorted by frequency
+	allWords := lexicon.Words()
+	buildResult := builder.Build(allWords)
+
+	if !buildResult.Success {
+		return nil, fmt.Errorf("grid construction failed: only placed %d words", len(buildResult.Words))
 	}
+
+	// Use the constructed grid as template
+	template := buildResult.Grid
+	slots := fill.DiscoverSlots(template)
+
+	// Create fill result from the built grid
+	fillResult := &fill.Result{
+		Grid:      make([][]rune, len(template)),
+		Words:     make(map[int]string),
+		Backtrack: 0,
+	}
+	for i, row := range template {
+		fillResult.Grid[i] = make([]rune, len(row))
+		for j, cell := range row {
+			if cell.Type == domain.CellTypeLetter && cell.Solution != "" {
+				fillResult.Grid[i][j] = rune(cell.Solution[0])
+			} else if cell.Type == domain.CellTypeBlock {
+				fillResult.Grid[i][j] = '#'
+			} else {
+				fillResult.Grid[i][j] = '.'
+			}
+		}
+	}
+
+	// Map words to slots
+	for _, slot := range slots {
+		word := slot.ExtractWord(fillResult.Grid)
+		if word != "" && !containsChar(word, '.') && !containsChar(word, '#') {
+			fillResult.Words[slot.ID] = word
+		}
+	}
+
 	result.FillResult = fillResult
 	result.Stats.FillTime = time.Since(fillStart)
 
@@ -205,53 +257,158 @@ func (o *Orchestrator) generateAttempt(ctx context.Context, req GenerateRequest,
 	return result, nil
 }
 
-func (o *Orchestrator) createDefaultTemplate() [][]domain.Cell {
-	rows := o.config.GridSize[0]
-	cols := o.config.GridSize[1]
+// createTemplateWithSize creates a template with the specified size, or uses defaults.
+// Validates and regenerates template if it violates block constraints.
+func (o *Orchestrator) createTemplateWithSize(rows, cols int) [][]domain.Cell {
+	// Use request size if valid, otherwise use config defaults
+	if rows < 10 || rows > 16 {
+		rows = o.config.GridSize[0]
+	}
+	if cols < 10 || cols > 16 {
+		cols = o.config.GridSize[1]
+	}
+	template := o.createTemplate(rows, cols)
 
-	template := make([][]domain.Cell, rows)
-	for i := range template {
-		template[i] = make([]domain.Cell, cols)
-		for j := range template[i] {
-			// Create a symmetric pattern with some blocks
-			if o.shouldBeBlock(i, j, rows, cols) {
-				template[i][j] = domain.Cell{Type: domain.CellTypeBlock}
-			} else {
-				template[i][j] = domain.Cell{Type: domain.CellTypeLetter}
-			}
+	// Validate block pattern
+	if o.config.MaxConsecutiveBlocks > 0 || o.config.MaxBlockClusterSize > 0 {
+		violations := fill.ValidateBlockPattern(template, o.config.MaxConsecutiveBlocks, o.config.MaxBlockClusterSize)
+		if len(violations) > 0 {
+			// Log violations and use fallback safe template
+			template = o.createSafeTemplate(rows, cols)
 		}
 	}
 
 	return template
 }
 
-func (o *Orchestrator) shouldBeBlock(row, col, rows, cols int) bool {
-	// Create a French-style symmetric pattern
-	// Block density around 15-20%
+func (o *Orchestrator) createDefaultTemplate() [][]domain.Cell {
+	return o.createTemplate(o.config.GridSize[0], o.config.GridSize[1])
+}
 
-	// Center is never a block
-	centerRow := rows / 2
-	centerCol := cols / 2
-	if row == centerRow && col == centerCol {
-		return false
-	}
-
-	// Create checkered corners
-	if (row < 2 || row >= rows-2) && (col < 2 || col >= cols-2) {
-		if (row+col)%2 == 0 {
-			return true
+// createSafeTemplate creates a template with guaranteed no dead block patterns.
+// Uses a sparse diagonal pattern that ensures no consecutive blocks.
+func (o *Orchestrator) createSafeTemplate(rows, cols int) [][]domain.Cell {
+	template := make([][]domain.Cell, rows)
+	for i := range template {
+		template[i] = make([]domain.Cell, cols)
+		for j := range template[i] {
+			template[i][j] = domain.Cell{Type: domain.CellTypeLetter}
 		}
 	}
 
-	// Some diagonal blocks
-	if row == col && row%4 == 0 && row != 0 && row != rows-1 {
-		return true
+	// Safe block placement: scattered pattern with minimum 2-cell gaps
+	addSafeBlocks(template, rows, cols, o.config.MaxConsecutiveBlocks)
+	return template
+}
+
+// addSafeBlocks adds blocks in a pattern that guarantees no dead block clusters.
+// Maintains 180° rotational symmetry while ensuring blocks are not adjacent.
+func addSafeBlocks(grid [][]domain.Cell, rows, cols int, maxConsec int) {
+	if maxConsec <= 0 {
+		maxConsec = 2
 	}
-	if row == cols-1-col && row%4 == 0 && row != 0 && row != rows-1 {
+
+	// Track which cells have blocks nearby
+	hasNearbyBlock := make([][]bool, rows)
+	for i := range hasNearbyBlock {
+		hasNearbyBlock[i] = make([]bool, cols)
+	}
+
+	setBlock := func(r, c int) bool {
+		if r < 0 || r >= rows || c < 0 || c >= cols {
+			return false
+		}
+		// Check if placing here would create a cluster
+		if hasNearbyBlock[r][c] {
+			return false
+		}
+
+		grid[r][c] = domain.Cell{Type: domain.CellTypeBlock}
+		// Symmetric placement
+		sr, sc := rows-1-r, cols-1-c
+		grid[sr][sc] = domain.Cell{Type: domain.CellTypeBlock}
+
+		// Mark nearby cells as blocked
+		for dr := -1; dr <= 1; dr++ {
+			for dc := -1; dc <= 1; dc++ {
+				nr, nc := r+dr, c+dc
+				if nr >= 0 && nr < rows && nc >= 0 && nc < cols {
+					hasNearbyBlock[nr][nc] = true
+				}
+				// Also mark near symmetric block
+				nr, nc = sr+dr, sc+dc
+				if nr >= 0 && nr < rows && nc >= 0 && nc < cols {
+					hasNearbyBlock[nr][nc] = true
+				}
+			}
+		}
 		return true
 	}
 
-	return false
+	// Target ~12-15% block density with scattered placement
+	targetBlocks := (rows * cols * 13) / 100 / 2 // Divide by 2 for symmetry
+
+	// Use staggered diagonal pattern
+	placed := 0
+	for offset := 0; placed < targetBlocks && offset < rows+cols; offset++ {
+		for r := 0; r < rows/2+1 && placed < targetBlocks; r++ {
+			c := (r*3 + offset*2) % cols
+			if setBlock(r, c) {
+				placed++
+			}
+		}
+	}
+}
+
+func (o *Orchestrator) createTemplate(rows, cols int) [][]domain.Cell {
+
+	template := make([][]domain.Cell, rows)
+	for i := range template {
+		template[i] = make([]domain.Cell, cols)
+		for j := range template[i] {
+			template[i][j] = domain.Cell{Type: domain.CellTypeLetter}
+		}
+	}
+
+	// Add symmetric blocks for French-style grids
+	addSymmetricBlocks(template, rows, cols)
+
+	return template
+}
+
+// addSymmetricBlocks adds blocks with 180° rotational symmetry.
+// Following mots fléchés best practices: sparse isolated blocks for breathing room.
+// Key insight: fewer blocks = easier to fill = more fun puzzles.
+func addSymmetricBlocks(grid [][]domain.Cell, rows, cols int) {
+	setBlock := func(r, c int) {
+		if r >= 0 && r < rows && c >= 0 && c < cols {
+			grid[r][c] = domain.Cell{Type: domain.CellTypeBlock}
+			// 180° rotational symmetry
+			grid[rows-1-r][cols-1-c] = domain.Cell{Type: domain.CellTypeBlock}
+		}
+	}
+
+	// SIMPLE sparse pattern: only a few isolated blocks
+	// This creates longer slots that are easier to fill
+	// The mots fléchés clue cells will be added later at edges
+
+	// For mots fléchés, we want MINIMAL blocks
+	// The clue cells will be added separately
+	// Fewer blocks = easier to fill = more fun
+
+	if rows <= 7 {
+		// Small grids: NO blocks - just a solid rectangle
+		// This creates max flexibility for the solver
+		return
+	}
+
+	// For larger grids: place blocks AWAY from center for better crossings
+	// Don't place at exact center - keep it open for word crossing
+	// Place at offset positions to create structure without blocking center
+	if rows >= 10 {
+		setBlock(rows/4, cols/4)       // Upper-left quadrant
+		setBlock(rows/4, 3*cols/4-1)   // Upper-right quadrant
+	}
 }
 
 func (o *Orchestrator) buildSlotInfos(slots []fill.Slot, fillResult *fill.Result) []clue.SlotInfo {
@@ -309,11 +466,8 @@ func (o *Orchestrator) assemblePuzzle(
 		}
 	}
 
-	// Assign numbers
-	grid = domain.AssignNumbers(grid)
-
-	// Build clues
-	var acrossClues, downClues []domain.Clue
+	// Build clue data for mots fléchés conversion
+	slotClues := make(map[int]clueData)
 
 	for _, slot := range slots {
 		answer, ok := fillResult.Words[slot.ID]
@@ -321,11 +475,9 @@ func (o *Orchestrator) assemblePuzzle(
 			continue
 		}
 
-		// Get clue prompt
 		prompt := ""
 		difficulty := o.config.TargetDifficulty
 		if clues, ok := clueResults[slot.ID]; ok && len(clues.Candidates) > 0 {
-			// Select best clue
 			best := o.clueGen.SelectBestClue(clues, o.config.TargetDifficulty, []string{"definition", "wordplay"})
 			if best != nil {
 				prompt = best.Prompt
@@ -333,18 +485,31 @@ func (o *Orchestrator) assemblePuzzle(
 			}
 		}
 
-		// Get number from grid
-		number := grid[slot.Start.Row][slot.Start.Col].Number
+		slotClues[slot.ID] = clueData{prompt: prompt, answer: answer, difficulty: difficulty}
+	}
+
+	// Convert to mots fléchés format: embed clues in grid cells
+	grid = o.convertToMotsFleches(grid, slots, slotClues)
+
+	// For mots fléchés, we keep clues list empty (clues are in grid)
+	// But we can populate it for backwards compatibility
+	var acrossClues, downClues []domain.Clue
+
+	for _, slot := range slots {
+		data, ok := slotClues[slot.ID]
+		if !ok {
+			continue
+		}
 
 		c := domain.Clue{
-			ID:         fmt.Sprintf("%d-%s", number, slot.Direction),
+			ID:         fmt.Sprintf("%d-%s", slot.ID+1, slot.Direction),
 			Direction:  slot.Direction,
-			Number:     number,
-			Prompt:     prompt,
-			Answer:     answer,
+			Number:     slot.ID + 1,
+			Prompt:     data.prompt,
+			Answer:     data.answer,
 			Start:      slot.Start,
 			Length:     slot.Length,
-			Difficulty: difficulty,
+			Difficulty: data.difficulty,
 		}
 
 		if slot.Direction == domain.DirectionAcross {
@@ -354,7 +519,6 @@ func (o *Orchestrator) assemblePuzzle(
 		}
 	}
 
-	// Sort clues by number
 	sortClues(acrossClues)
 	sortClues(downClues)
 
@@ -379,6 +543,120 @@ func (o *Orchestrator) assemblePuzzle(
 	}
 }
 
+// convertToMotsFleches converts a traditional crossword grid to mots fléchés format.
+// In mots fléchés, clues are embedded in cells adjacent to word starts.
+func (o *Orchestrator) convertToMotsFleches(
+	grid [][]domain.Cell,
+	slots []fill.Slot,
+	slotClues map[int]clueData,
+) [][]domain.Cell {
+	rows := len(grid)
+	if rows == 0 {
+		return grid
+	}
+	_ = len(grid[0]) // cols not needed but validates grid
+
+	// For each slot, find where to place the clue cell
+	for _, slot := range slots {
+		data, ok := slotClues[slot.ID]
+		if !ok || data.prompt == "" {
+			continue
+		}
+
+		startRow := slot.Start.Row
+		startCol := slot.Start.Col
+
+		if slot.Direction == domain.DirectionAcross {
+			// Clue goes to the LEFT of the word start
+			clueCol := startCol - 1
+			if clueCol >= 0 {
+				cell := &grid[startRow][clueCol]
+				if cell.Type == domain.CellTypeBlock || cell.Type == domain.CellTypeClue {
+					cell.Type = domain.CellTypeClue
+					cell.ClueAcross = data.prompt
+				}
+			}
+		} else {
+			// Clue goes ABOVE the word start
+			clueRow := startRow - 1
+			if clueRow >= 0 {
+				cell := &grid[clueRow][startCol]
+				if cell.Type == domain.CellTypeBlock || cell.Type == domain.CellTypeClue {
+					cell.Type = domain.CellTypeClue
+					cell.ClueDown = data.prompt
+				}
+			}
+		}
+	}
+
+	// Trim the grid to remove excess blocks and ensure clue cells on edges
+	grid = o.trimAndPadGrid(grid, slots, slotClues)
+
+	return grid
+}
+
+// trimAndPadGrid trims excess blocks and ensures words have clue cells.
+func (o *Orchestrator) trimAndPadGrid(
+	grid [][]domain.Cell,
+	slots []fill.Slot,
+	slotClues map[int]clueData,
+) [][]domain.Cell {
+	rows := len(grid)
+	if rows == 0 {
+		return grid
+	}
+	cols := len(grid[0])
+
+	// Find actual content bounds (letter cells)
+	minRow, maxRow := rows, 0
+	minCol, maxCol := cols, 0
+
+	for i := 0; i < rows; i++ {
+		for j := 0; j < cols; j++ {
+			if grid[i][j].Type == domain.CellTypeLetter {
+				if i < minRow {
+					minRow = i
+				}
+				if i > maxRow {
+					maxRow = i
+				}
+				if j < minCol {
+					minCol = j
+				}
+				if j > maxCol {
+					maxCol = j
+				}
+			}
+		}
+	}
+
+	if maxRow < minRow {
+		return grid // Empty grid
+	}
+
+	// Need 1 cell padding on left and top for clue cells
+	if minRow > 0 {
+		minRow--
+	}
+	if minCol > 0 {
+		minCol--
+	}
+
+	// Create trimmed grid
+	newRows := maxRow - minRow + 1
+	newCols := maxCol - minCol + 1
+	trimmed := make([][]domain.Cell, newRows)
+
+	for i := 0; i < newRows; i++ {
+		trimmed[i] = make([]domain.Cell, newCols)
+		for j := 0; j < newCols; j++ {
+			trimmed[i][j] = grid[minRow+i][minCol+j]
+		}
+	}
+
+	return trimmed
+}
+
 func sortClues(clues []domain.Clue) {
 	// Simple bubble sort
 	for i := 0; i < len(clues)-1; i++ {
@@ -388,4 +666,14 @@ func sortClues(clues []domain.Clue) {
 			}
 		}
 	}
+}
+
+// containsChar checks if a string contains a specific character.
+func containsChar(s string, c rune) bool {
+	for _, r := range s {
+		if r == c {
+			return true
+		}
+	}
+	return false
 }

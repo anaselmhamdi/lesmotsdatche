@@ -162,12 +162,16 @@ func ValidatePuzzleSemantic(p *domain.Puzzle) ValidationErrors {
 		}
 	}
 
-	// Check minimum grid size
+	// Check grid size constraints (French standard: 10-16)
+	const (
+		MinGridSize = 10
+		MaxGridSize = 16
+	)
 	rows, cols := p.GridDimensions()
-	if rows < 7 || cols < 7 {
+	if rows < MinGridSize || rows > MaxGridSize || cols < MinGridSize || cols > MaxGridSize {
 		errors = append(errors, ValidationError{
 			Path:    "/grid",
-			Message: fmt.Sprintf("grid must be at least 7x7, got %dx%d", rows, cols),
+			Message: fmt.Sprintf("grid must be %dx%d to %dx%d, got %dx%d", MinGridSize, MinGridSize, MaxGridSize, MaxGridSize, rows, cols),
 		})
 	}
 

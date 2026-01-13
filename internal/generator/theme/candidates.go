@@ -29,8 +29,8 @@ type CandidateGeneratorConfig struct {
 // DefaultCandidateConfig returns default configuration.
 func DefaultCandidateConfig() CandidateGeneratorConfig {
 	return CandidateGeneratorConfig{
-		MinCandidatesPerLength: 10,
-		MaxCandidatesPerLength: 50,
+		MinCandidatesPerLength: 20,
+		MaxCandidatesPerLength: 50, // Balance between coverage and speed
 		ThematicBoost:          0.3,
 		Temperature:            0.6,
 	}
@@ -76,6 +76,19 @@ func (g *CandidateGenerator) GenerateCandidates(ctx context.Context, theme *Them
 				continue
 			}
 
+			// Only add words with correct lengths
+			wordLen := len(normalized)
+			isValidLength := false
+			for _, l := range group {
+				if wordLen == l {
+					isValidLength = true
+					break
+				}
+			}
+			if !isValidLength {
+				continue
+			}
+
 			score := candidate.Score
 			if candidate.IsThematic {
 				score += g.config.ThematicBoost
@@ -111,7 +124,7 @@ func (g *CandidateGenerator) generateForLengths(ctx context.Context, theme *Them
 		SystemPrompt: systemPrompt,
 		Prompt:       userPrompt,
 		Temperature:  g.config.Temperature,
-		MaxTokens:    2048,
+		MaxTokens:    4096, // More tokens for 100 candidates per length
 	}
 
 	var result candidateResponse
@@ -129,37 +142,34 @@ type candidateResponse struct {
 
 func defaultCandidateSystemPrompt(langCode string) string {
 	if langCode == "fr" {
-		return `Tu es un assistant spécialisé dans la génération de mots pour mots croisés français.
-Génère des mots français valides qui correspondent au thème donné.
-Réponds toujours en JSON valide avec le format suivant:
-{
-  "candidates": [
-    {"word": "MOT", "score": 0.8, "difficulty": 2, "is_thematic": true},
-    {"word": "AUTRE", "score": 0.5, "difficulty": 3, "is_thematic": false}
-  ]
-}
+		return `Tu génères des mots pour mots croisés français.
 
-Règles:
-- Les mots doivent être en MAJUSCULES sans accents
-- Le score va de 0.0 à 1.0 (pertinence au thème)
-- La difficulté va de 1 (facile) à 5 (expert)
-- is_thematic = true si le mot est directement lié au thème`
+IMPORTANT: Réponds UNIQUEMENT en JSON valide, sans backticks ni markdown.
+Format EXACT:
+{"candidates":[{"word":"MAISON","score":0.8,"difficulty":2,"is_thematic":true}]}
+
+Règles STRICTES pour les mots:
+- MAJUSCULES uniquement (CHAT pas chat)
+- SANS accents (CAFE pas CAFÉ, ECOLE pas ÉCOLE)
+- SANS espaces (POMME pas POM ME)
+- SANS tirets (AUJOURDHUI pas AUJOURD-HUI)
+- Longueur 2-15 lettres
+
+score: 0.0-1.0 (pertinence), difficulty: 1-5, is_thematic: true/false`
 	}
-	return `You are a crossword word generation specialist.
-Generate valid words that match the given theme.
-Always respond with valid JSON in this format:
-{
-  "candidates": [
-    {"word": "WORD", "score": 0.8, "difficulty": 2, "is_thematic": true},
-    {"word": "OTHER", "score": 0.5, "difficulty": 3, "is_thematic": false}
-  ]
-}
+	return `You generate crossword words.
 
-Rules:
-- Words must be in UPPERCASE
-- Score ranges from 0.0 to 1.0 (theme relevance)
-- Difficulty ranges from 1 (easy) to 5 (expert)
-- is_thematic = true if word is directly related to theme`
+IMPORTANT: Respond ONLY with valid JSON, no backticks, no markdown.
+EXACT format:
+{"candidates":[{"word":"HELLO","score":0.8,"difficulty":2,"is_thematic":true}]}
+
+STRICT word rules:
+- UPPERCASE only
+- NO accents
+- NO spaces or hyphens
+- Length 2-15 letters
+
+score: 0.0-1.0 (relevance), difficulty: 1-5, is_thematic: true/false`
 }
 
 func buildCandidatePrompt(theme *Theme, lengths []int, maxPerLength int, langCode string) string {
@@ -167,30 +177,25 @@ func buildCandidatePrompt(theme *Theme, lengths []int, maxPerLength int, langCod
 
 	if langCode == "fr" {
 		sb.WriteString(fmt.Sprintf("Thème: %s\n", theme.Title))
-		sb.WriteString(fmt.Sprintf("Description: %s\n", theme.Description))
-		sb.WriteString(fmt.Sprintf("Mots-clés: %s\n\n", strings.Join(theme.Keywords, ", ")))
-
-		sb.WriteString("Génère des mots français pour les longueurs suivantes:\n")
-		for _, length := range lengths {
-			sb.WriteString(fmt.Sprintf("- %d lettres: %d mots\n", length, maxPerLength))
-		}
-
-		sb.WriteString("\nInclus à la fois:\n")
-		sb.WriteString("- Des mots directement liés au thème (is_thematic: true)\n")
-		sb.WriteString("- Des mots communs utiles pour remplir la grille (is_thematic: false)\n")
+		sb.WriteString(fmt.Sprintf("LONGUEURS EXACTES REQUISES: %v lettres\n", lengths))
+		sb.WriteString(fmt.Sprintf("Génère %d mots par longueur.\n\n", maxPerLength))
+		sb.WriteString("RÈGLES CRITIQUES:\n")
+		sb.WriteString("- CHAQUE mot doit avoir EXACTEMENT le nombre de lettres demandé\n")
+		sb.WriteString("- MAJUSCULES, SANS accents, SANS espaces\n")
+		sb.WriteString("- PRIORITÉ aux mots avec VOYELLES (A,E,I,O,U) - ils se croisent mieux\n")
+		sb.WriteString("- Mix de mots thématiques ET mots communs très courants\n")
+		sb.WriteString("- Inclure: noms, verbes, adjectifs, mots du quotidien\n")
+		sb.WriteString("- Exemples de bons mots: ARBRE, SOLEIL, MAISON, ROUTE, AVION, ETOILE")
 	} else {
 		sb.WriteString(fmt.Sprintf("Theme: %s\n", theme.Title))
-		sb.WriteString(fmt.Sprintf("Description: %s\n", theme.Description))
-		sb.WriteString(fmt.Sprintf("Keywords: %s\n\n", strings.Join(theme.Keywords, ", ")))
-
-		sb.WriteString("Generate words for the following lengths:\n")
-		for _, length := range lengths {
-			sb.WriteString(fmt.Sprintf("- %d letters: %d words\n", length, maxPerLength))
-		}
-
-		sb.WriteString("\nInclude both:\n")
-		sb.WriteString("- Words directly related to the theme (is_thematic: true)\n")
-		sb.WriteString("- Common useful words for filling the grid (is_thematic: false)\n")
+		sb.WriteString(fmt.Sprintf("EXACT LENGTHS REQUIRED: %v letters\n", lengths))
+		sb.WriteString(fmt.Sprintf("Generate %d words per length.\n\n", maxPerLength))
+		sb.WriteString("CRITICAL RULES:\n")
+		sb.WriteString("- Each word must have EXACTLY the requested letter count\n")
+		sb.WriteString("- UPPERCASE, NO accents, NO spaces\n")
+		sb.WriteString("- PRIORITIZE words with VOWELS (A,E,I,O,U) - they cross better\n")
+		sb.WriteString("- Mix of thematic AND common everyday words\n")
+		sb.WriteString("- Include: nouns, verbs, adjectives, everyday words")
 	}
 
 	return sb.String()
@@ -241,6 +246,35 @@ func LengthsFromSlots(slots []fill.Slot) []int {
 			seen[slot.Length] = true
 			lengths = append(lengths, slot.Length)
 		}
+	}
+
+	return lengths
+}
+
+// AllLengthsForGrid returns word lengths optimized for mots fléchés.
+// Following guidelines: mix of short (3-5) and medium (6-9) words.
+// Shorter words cross more easily and create more fun puzzles.
+func AllLengthsForGrid(rows, cols int) []int {
+	maxLen := rows
+	if cols > maxLen {
+		maxLen = cols
+	}
+
+	// Cap at 9 letters - longer words are harder to cross
+	// and less fun according to mots fléchés best practices
+	if maxLen > 9 {
+		maxLen = 9
+	}
+
+	lengths := make([]int, 0, maxLen-1)
+	for i := 2; i <= maxLen; i++ {
+		lengths = append(lengths, i)
+	}
+
+	// Also include longer lengths if grid requires them
+	// but request fewer candidates for these
+	if rows > 9 || cols > 9 {
+		lengths = append(lengths, 10)
 	}
 
 	return lengths

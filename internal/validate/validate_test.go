@@ -90,13 +90,13 @@ func TestValidatePuzzleJSON_InvalidDifficultyRange(t *testing.T) {
 func TestValidatePuzzleSemantic_GridNotRectangular(t *testing.T) {
 	puzzle := &domain.Puzzle{
 		Grid: [][]domain.Cell{
-			make([]domain.Cell, 7),
+			make([]domain.Cell, 10),
 			make([]domain.Cell, 5), // Wrong size
-			make([]domain.Cell, 7),
-			make([]domain.Cell, 7),
-			make([]domain.Cell, 7),
-			make([]domain.Cell, 7),
-			make([]domain.Cell, 7),
+			make([]domain.Cell, 10),
+			make([]domain.Cell, 10),
+			make([]domain.Cell, 10),
+			make([]domain.Cell, 10),
+			make([]domain.Cell, 10),
 		},
 	}
 
@@ -132,7 +132,7 @@ func TestValidatePuzzleSemantic_GridTooSmall(t *testing.T) {
 
 	found := false
 	for _, e := range errs {
-		if strings.Contains(e.Message, "7x7") {
+		if strings.Contains(e.Message, "10x10") {
 			found = true
 			break
 		}
@@ -143,10 +143,10 @@ func TestValidatePuzzleSemantic_GridTooSmall(t *testing.T) {
 }
 
 func TestValidatePuzzleSemantic_InvalidSolution(t *testing.T) {
-	// Create a 7x7 grid with an invalid solution
-	grid := make([][]domain.Cell, 7)
+	// Create a 10x10 grid with an invalid solution (minimum valid size)
+	grid := make([][]domain.Cell, 10)
 	for i := range grid {
-		grid[i] = make([]domain.Cell, 7)
+		grid[i] = make([]domain.Cell, 10)
 		for j := range grid[i] {
 			grid[i][j] = domain.Cell{Type: domain.CellTypeLetter, Solution: "A"}
 		}
@@ -169,10 +169,10 @@ func TestValidatePuzzleSemantic_InvalidSolution(t *testing.T) {
 }
 
 func TestValidatePuzzleSemantic_ClueAnswerMismatch(t *testing.T) {
-	// Create a 7x7 grid
-	grid := make([][]domain.Cell, 7)
+	// Create a 10x10 grid
+	grid := make([][]domain.Cell, 10)
 	for i := range grid {
-		grid[i] = make([]domain.Cell, 7)
+		grid[i] = make([]domain.Cell, 10)
 		for j := range grid[i] {
 			grid[i][j] = domain.Cell{Type: domain.CellTypeLetter, Solution: "A"}
 		}
@@ -209,10 +209,10 @@ func TestValidatePuzzleSemantic_ClueAnswerMismatch(t *testing.T) {
 }
 
 func TestValidatePuzzleSemantic_ClueLengthMismatch(t *testing.T) {
-	// Create a 7x7 grid
-	grid := make([][]domain.Cell, 7)
+	// Create a 10x10 grid
+	grid := make([][]domain.Cell, 10)
 	for i := range grid {
-		grid[i] = make([]domain.Cell, 7)
+		grid[i] = make([]domain.Cell, 10)
 		for j := range grid[i] {
 			grid[i][j] = domain.Cell{Type: domain.CellTypeLetter, Solution: "A"}
 		}
@@ -249,10 +249,10 @@ func TestValidatePuzzleSemantic_ClueLengthMismatch(t *testing.T) {
 }
 
 func TestValidatePuzzleSemantic_UncoveredCell(t *testing.T) {
-	// Create a 7x7 grid
-	grid := make([][]domain.Cell, 7)
+	// Create a 10x10 grid
+	grid := make([][]domain.Cell, 10)
 	for i := range grid {
-		grid[i] = make([]domain.Cell, 7)
+		grid[i] = make([]domain.Cell, 10)
 		for j := range grid[i] {
 			grid[i][j] = domain.Cell{Type: domain.CellTypeLetter, Solution: "A"}
 		}
