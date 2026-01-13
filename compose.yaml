@@ -1,0 +1,42 @@
+# Les Mots d'Atché - Production
+# Usage: docker compose up --build
+# Note: In production (Fly.io), secrets are injected via `fly secrets`
+
+services:
+  api:
+    build:
+      context: ./python_generator
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - api-data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  seed:
+    image: curlimages/curl:latest
+    depends_on:
+      api:
+        condition: service_healthy
+    volumes:
+      - ./python_generator/seed:/seed:ro
+    entrypoint: ["/bin/sh", "/seed/seed.sh"]
+    environment:
+      - API_URL=http://api:8080
+
+  web:
+    build:
+      context: ./flutter_app
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      seed:
+        condition: service_completed_successfully
+
+volumes:
+  api-data:

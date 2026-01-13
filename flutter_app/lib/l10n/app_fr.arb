@@ -1,0 +1,44 @@
+{
+  "@@locale": "fr",
+  "appTitle": "Les Mots d'Atché",
+  "@appTitle": {
+    "description": "The application title"
+  },
+  "dailyPuzzle": "Puzzle du jour",
+  "@dailyPuzzle": {
+    "description": "Daily puzzle section title"
+  },
+  "loading": "Chargement...",
+  "@loading": {
+    "description": "Loading indicator text"
+  },
+  "errorLoading": "Erreur de chargement",
+  "@errorLoading": {
+    "description": "Error message when loading fails"
+  },
+  "retry": "Réessayer",
+  "@retry": {
+    "description": "Retry button text"
+  },
+  "play": "Jouer",
+  "@play": {
+    "description": "Play button text"
+  },
+  "difficulty": "Difficulté",
+  "@difficulty": {
+    "description": "Difficulty label"
+  },
+  "author": "Auteur",
+  "@author": {
+    "description": "Author label"
+  },
+  "clues": "indices",
+  "@clues": {
+    "description": "Clues label (plural)"
+  },
+  "difficultyEasy": "Facile",
+  "difficultyMedium": "Moyen",
+  "difficultyNormal": "Normal",
+  "difficultyHard": "Difficile",
+  "difficultyExpert": "Expert"
+}

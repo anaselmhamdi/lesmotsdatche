@@ -194,7 +194,11 @@ func (b *GridBuilder) Build(candidates []string) *BuildResult {
 	}
 
 	// Step 5: GAP FILLING PHASE - Fill gaps to eliminate dead blocks
-	b.fillGaps(shortWords)
+	// Combine all candidates with short words for maximum coverage
+	allFillWords := make([]string, 0, len(candidates)+len(shortWords))
+	allFillWords = append(allFillWords, shortWords...)
+	allFillWords = append(allFillWords, candidates...)
+	b.fillGaps(allFillWords)
 
 	// Build result
 	// Success if we placed enough words - dead blocks are OK for now
@@ -287,6 +291,7 @@ func (b *GridBuilder) collectShortWords(candidates []string) []string {
 }
 
 // findGaps finds all horizontal and vertical gaps in the grid.
+// Returns gaps sorted by length (shortest first) for easier filling.
 func (b *GridBuilder) findGaps() []Gap {
 	var gaps []Gap
 
@@ -312,8 +317,8 @@ func (b *GridBuilder) findGaps() []Gap {
 			}
 			length := col - startCol
 
-			// Only consider gaps of length 2-4 (fillable with short words)
-			if length >= 2 && length <= 4 {
+			// Consider ALL gaps of length 2+ (we'll fill what we can)
+			if length >= 2 {
 				gaps = append(gaps, Gap{
 					Row:       row,
 					Col:       startCol,
@@ -341,8 +346,8 @@ func (b *GridBuilder) findGaps() []Gap {
 			}
 			length := row - startRow
 
-			// Only consider gaps of length 2-4
-			if length >= 2 && length <= 4 {
+			// Consider ALL gaps of length 2+
+			if length >= 2 {
 				gaps = append(gaps, Gap{
 					Row:       startRow,
 					Col:       col,
@@ -353,14 +358,19 @@ func (b *GridBuilder) findGaps() []Gap {
 		}
 	}
 
+	// Sort gaps by length (shortest first - easier to fill)
+	sort.Slice(gaps, func(i, j int) bool {
+		return gaps[i].Length < gaps[j].Length
+	})
+
 	return gaps
 }
 
-// fillGaps attempts to fill gaps with short words to eliminate dead blocks.
-func (b *GridBuilder) fillGaps(shortWords []string) {
-	// Build a map of short words by length for fast lookup
+// fillGaps attempts to fill gaps with words to eliminate dead blocks.
+func (b *GridBuilder) fillGaps(allWords []string) {
+	// Build a map of words by length for fast lookup
 	byLength := make(map[int][]string)
-	for _, word := range shortWords {
+	for _, word := range allWords {
 		if !b.usedWords[word] {
 			l := len(word)
 			byLength[l] = append(byLength[l], word)
@@ -368,7 +378,7 @@ func (b *GridBuilder) fillGaps(shortWords []string) {
 	}
 
 	// Multiple passes to fill as many gaps as possible
-	for pass := 0; pass < 5; pass++ {
+	for pass := 0; pass < 10; pass++ {
 		gaps := b.findGaps()
 		if len(gaps) == 0 {
 			break
@@ -376,17 +386,50 @@ func (b *GridBuilder) fillGaps(shortWords []string) {
 
 		filled := false
 		for _, gap := range gaps {
-			candidates := byLength[gap.Length]
-			for _, word := range candidates {
-				if b.usedWords[word] {
-					continue
+			// Try exact length first
+			if candidates, ok := byLength[gap.Length]; ok {
+				for _, word := range candidates {
+					if b.usedWords[word] {
+						continue
+					}
+					if b.canFillGap(word, gap) {
+						b.placeWord(word, gap.Row, gap.Col, gap.Direction)
+						filled = true
+						break
+					}
 				}
-
-				if b.canFillGap(word, gap) {
-					b.placeWord(word, gap.Row, gap.Col, gap.Direction)
-					filled = true
+				if filled {
 					break
 				}
+			}
+
+			// Try shorter words that fit at the start of the gap
+			for length := gap.Length - 1; length >= 2; length-- {
+				if candidates, ok := byLength[length]; ok {
+					for _, word := range candidates {
+						if b.usedWords[word] {
+							continue
+						}
+						// Create a sub-gap for the shorter word
+						subGap := Gap{
+							Row:       gap.Row,
+							Col:       gap.Col,
+							Length:    length,
+							Direction: gap.Direction,
+						}
+						if b.canFillGap(word, subGap) {
+							b.placeWord(word, subGap.Row, subGap.Col, subGap.Direction)
+							filled = true
+							break
+						}
+					}
+					if filled {
+						break
+					}
+				}
+			}
+			if filled {
+				break
 			}
 		}
 

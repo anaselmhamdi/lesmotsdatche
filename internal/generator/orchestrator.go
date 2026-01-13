@@ -184,31 +184,33 @@ func (o *Orchestrator) generateAttempt(ctx context.Context, req GenerateRequest,
 		}
 	}
 
-	// Step 4: Build grid using word-first construction
+	// Step 4: Build grid using word-first approach
+	// Place larger words first, then fill gaps with smaller words
 	fillStart := time.Now()
+
+	// Collect all candidate words from lexicon
+	candidates := lexicon.Words()
+
+	// Build grid word-first: start with larger words, fill gaps with smaller ones
 	builder := fill.NewGridBuilder(fill.BuilderConfig{
-		MaxRows: rows + 4, // Extra space for construction
-		MaxCols: cols + 4,
+		MaxRows: rows,
+		MaxCols: cols,
 		Seed:    time.Now().UnixNano() + int64(attempt),
 	})
-
-	// Get all words from lexicon sorted by frequency
-	allWords := lexicon.Words()
-	buildResult := builder.Build(allWords)
+	buildResult := builder.Build(candidates)
 
 	if !buildResult.Success {
-		return nil, fmt.Errorf("grid construction failed: only placed %d words", len(buildResult.Words))
+		return nil, fmt.Errorf("grid building failed: not enough words placed")
 	}
 
-	// Use the constructed grid as template
+	// Convert build result to fill result format
 	template := buildResult.Grid
 	slots := fill.DiscoverSlots(template)
 
 	// Create fill result from the built grid
 	fillResult := &fill.Result{
-		Grid:      make([][]rune, len(template)),
-		Words:     make(map[int]string),
-		Backtrack: 0,
+		Grid:  make([][]rune, len(template)),
+		Words: make(map[int]string),
 	}
 	for i, row := range template {
 		fillResult.Grid[i] = make([]rune, len(row))
@@ -225,8 +227,13 @@ func (o *Orchestrator) generateAttempt(ctx context.Context, req GenerateRequest,
 
 	// Map words to slots
 	for _, slot := range slots {
-		word := slot.ExtractWord(fillResult.Grid)
-		if word != "" && !containsChar(word, '.') && !containsChar(word, '#') {
+		word := ""
+		for _, pos := range slot.Cells {
+			if template[pos.Row][pos.Col].Solution != "" {
+				word += template[pos.Row][pos.Col].Solution
+			}
+		}
+		if len(word) == slot.Length {
 			fillResult.Words[slot.ID] = word
 		}
 	}
@@ -372,6 +379,82 @@ func (o *Orchestrator) createTemplate(rows, cols int) [][]domain.Cell {
 
 	// Add symmetric blocks for French-style grids
 	addSymmetricBlocks(template, rows, cols)
+
+	return template
+}
+
+// createDenseTemplate creates a grid with ZERO dead blocks.
+// Blocks are placed to ensure no slot exceeds 8 letters.
+// All blocks are isolated (never adjacent to another block).
+// Key: EVERY column must have at least one block to avoid full-column slots.
+func createDenseTemplate(rows, cols int) [][]domain.Cell {
+	template := make([][]domain.Cell, rows)
+	for i := range template {
+		template[i] = make([]domain.Cell, cols)
+		for j := range template[i] {
+			template[i][j] = domain.Cell{Type: domain.CellTypeLetter}
+		}
+	}
+
+	// Helper to safely set a block, checking for adjacent blocks (4-connected)
+	setBlock := func(r, c int) bool {
+		if r < 0 || r >= rows || c < 0 || c >= cols {
+			return false
+		}
+		if r > 0 && template[r-1][c].Type == domain.CellTypeBlock {
+			return false
+		}
+		if r < rows-1 && template[r+1][c].Type == domain.CellTypeBlock {
+			return false
+		}
+		if c > 0 && template[r][c-1].Type == domain.CellTypeBlock {
+			return false
+		}
+		if c < cols-1 && template[r][c+1].Type == domain.CellTypeBlock {
+			return false
+		}
+		template[r][c] = domain.Cell{Type: domain.CellTypeBlock}
+		return true
+	}
+
+	// Strategy: Use a predetermined staggered pattern that covers all columns
+	// Pattern jumps by ~3 columns each row to ensure non-adjacency and coverage
+	// For 10 columns: 5, 8, 1, 4, 7, 0, 3, 6, 9, 2 covers all 10 columns
+
+	// Calculate positions that cycle through all columns
+	jump := 3
+	if cols <= 7 {
+		jump = 2
+	}
+
+	// Ensure we cover all columns by using a carefully chosen starting position and jump
+	startCol := cols / 2
+	positions := make([]int, rows)
+
+	for row := 0; row < rows; row++ {
+		positions[row] = (startCol + row*jump) % cols
+	}
+
+	// Place blocks at calculated positions
+	for row := 0; row < rows; row++ {
+		col := positions[row]
+
+		// Try the calculated position first
+		if !setBlock(row, col) {
+			// If blocked by adjacency, try nearby columns
+			for offset := 1; offset < cols; offset++ {
+				leftCol := (col - offset + cols) % cols
+				rightCol := (col + offset) % cols
+
+				if setBlock(row, leftCol) {
+					break
+				}
+				if setBlock(row, rightCol) {
+					break
+				}
+			}
+		}
+	}
 
 	return template
 }

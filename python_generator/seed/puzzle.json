@@ -1,0 +1,830 @@
+{
+  "id": "fr-2026-01-13",
+  "date": "2026-01-13",
+  "language": "fr",
+  "title": "La Cuisine Française",
+  "author": "LLM Generator",
+  "difficulty": 3,
+  "status": "published",
+  "grid": [
+    [
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "clue",
+        "clue_down": "Souffrance éprouvée"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "clue",
+        "clue_down": "Pour questionner"
+      }
+    ],
+    [
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "clue",
+        "clue_down": "Souhait fervent"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "clue",
+        "clue_down": "Proposition novatrice"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "P"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "clue",
+        "clue_down": "Symbole céleste"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "Q"
+      }
+    ],
+    [
+      {
+        "type": "block"
+      },
+      {
+        "type": "clue",
+        "clue_down": "Fraîchement arrivé"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "V"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "clue",
+        "clue_across": "Membres d'oiseau",
+        "clue_down": "Transaction commerciale"
+      },
+      {
+        "type": "letter",
+        "solution": "A"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      },
+      {
+        "type": "letter",
+        "solution": "L"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "letter",
+        "solution": "S"
+      },
+      {
+        "type": "clue",
+        "clue_across": "Personne choisie"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "letter",
+        "solution": "L"
+      },
+      {
+        "type": "letter",
+        "solution": "U"
+      }
+    ],
+    [
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "N"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "O"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "A"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "D"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "T"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "O"
+      }
+    ],
+    [
+      {
+        "type": "clue",
+        "clue_across": "Volatile du foie gras"
+      },
+      {
+        "type": "letter",
+        "solution": "O"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "F"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "clue",
+        "clue_down": "Exposée à l'air"
+      },
+      {
+        "type": "letter",
+        "solution": "N"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "O"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      }
+    ],
+    [
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "U"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "U"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "F"
+      },
+      {
+        "type": "clue",
+        "clue_across": "Force vitale"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "letter",
+        "solution": "N"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "letter",
+        "solution": "R"
+      },
+      {
+        "type": "letter",
+        "solution": "G"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "block"
+      }
+    ],
+    [
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "V"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "A"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "U"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "L"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      }
+    ],
+    [
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "clue",
+        "clue_across": "Feu destructeur"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      },
+      {
+        "type": "letter",
+        "solution": "N"
+      },
+      {
+        "type": "letter",
+        "solution": "C"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "letter",
+        "solution": "N"
+      },
+      {
+        "type": "letter",
+        "solution": "D"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      }
+    ],
+    [
+      {
+        "type": "clue",
+        "clue_across": "Porter assistance"
+      },
+      {
+        "type": "letter",
+        "solution": "A"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      },
+      {
+        "type": "letter",
+        "solution": "D"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "letter",
+        "solution": "R"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      }
+    ],
+    [
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "U"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "clue",
+        "clue_across": "Réaction sensible"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "letter",
+        "solution": "M"
+      },
+      {
+        "type": "letter",
+        "solution": "O"
+      },
+      {
+        "type": "letter",
+        "solution": "T"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      },
+      {
+        "type": "letter",
+        "solution": "O"
+      },
+      {
+        "type": "letter",
+        "solution": "N"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      }
+    ]
+  ],
+  "clues": {
+    "across": [
+      {
+        "id": "1-across",
+        "direction": "across",
+        "number": 1,
+        "prompt": "Membres d'oiseau",
+        "answer": "AILES",
+        "start": {
+          "row": 2,
+          "col": 6
+        },
+        "length": 5,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
+        "id": "2-across",
+        "direction": "across",
+        "number": 2,
+        "prompt": "Personne choisie",
+        "answer": "ELU",
+        "start": {
+          "row": 2,
+          "col": 12
+        },
+        "length": 3,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
+        "id": "3-across",
+        "direction": "across",
+        "number": 3,
+        "prompt": "Volatile du foie gras",
+        "answer": "OIE",
+        "start": {
+          "row": 4,
+          "col": 1
+        },
+        "length": 3,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
+        "id": "4-across",
+        "direction": "across",
+        "number": 4,
+        "prompt": "Force vitale",
+        "answer": "ENERGIE",
+        "start": {
+          "row": 5,
+          "col": 7
+        },
+        "length": 7,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
+        "id": "5-across",
+        "direction": "across",
+        "number": 5,
+        "prompt": "Feu destructeur",
+        "answer": "INCENDIE",
+        "start": {
+          "row": 7,
+          "col": 5
+        },
+        "length": 8,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
+        "id": "6-across",
+        "direction": "across",
+        "number": 6,
+        "prompt": "Porter assistance",
+        "answer": "AIDER",
+        "start": {
+          "row": 8,
+          "col": 1
+        },
+        "length": 5,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
+        "id": "7-across",
+        "direction": "across",
+        "number": 7,
+        "prompt": "Réaction sensible",
+        "answer": "EMOTION",
+        "start": {
+          "row": 9,
+          "col": 5
+        },
+        "length": 7,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      }
+    ],
+    "down": [
+      {
+        "id": "8-down",
+        "direction": "down",
+        "number": 8,
+        "prompt": "Fraîchement arrivé",
+        "answer": "NOUVEAU",
+        "start": {
+          "row": 3,
+          "col": 1
+        },
+        "length": 7,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
+        "id": "9-down",
+        "direction": "down",
+        "number": 9,
+        "prompt": "Souhait fervent",
+        "answer": "VOEU",
+        "start": {
+          "row": 2,
+          "col": 3
+        },
+        "length": 4,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
+        "id": "10-down",
+        "direction": "down",
+        "number": 10,
+        "prompt": "Transaction commerciale",
+        "answer": "AFFAIRE",
+        "start": {
+          "row": 3,
+          "col": 5
+        },
+        "length": 7,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
+        "id": "11-down",
+        "direction": "down",
+        "number": 11,
+        "prompt": "Proposition novatrice",
+        "answer": "IDEE",
+        "start": {
+          "row": 2,
+          "col": 7
+        },
+        "length": 4,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
+        "id": "12-down",
+        "direction": "down",
+        "number": 12,
+        "prompt": "Exposée à l'air",
+        "answer": "NUE",
+        "start": {
+          "row": 5,
+          "col": 8
+        },
+        "length": 3,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
+        "id": "13-down",
+        "direction": "down",
+        "number": 13,
+        "prompt": "Souffrance éprouvée",
+        "answer": "PEINE",
+        "start": {
+          "row": 1,
+          "col": 9
+        },
+        "length": 5,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
+        "id": "14-down",
+        "direction": "down",
+        "number": 14,
+        "prompt": "Symbole céleste",
+        "answer": "ETOILE",
+        "start": {
+          "row": 2,
+          "col": 12
+        },
+        "length": 6,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
+        "id": "15-down",
+        "direction": "down",
+        "number": 15,
+        "prompt": "Pour questionner",
+        "answer": "QUOI",
+        "start": {
+          "row": 1,
+          "col": 14
+        },
+        "length": 4,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      }
+    ]
+  },
+  "metadata": {
+    "theme_tags": [
+      "CUISINE",
+      "PLAT",
+      "INGREDIENT",
+      "RECETTE",
+      "GOUT"
+    ],
+    "notes": "Ingrédients et plats de la gastronomie française"
+  },
+  "created_at": "2026-01-13T11:36:23.231635+01:00"
+}

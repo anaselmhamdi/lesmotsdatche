@@ -1,0 +1,32 @@
+# Development overrides with hot-reload
+# Usage: docker compose -f compose.yaml -f compose.dev.yaml up
+
+services:
+  api:
+    build:
+      context: ./python_generator
+      dockerfile: Dockerfile.dev
+    env_file:
+      - .env
+    volumes:
+      - ./python_generator/api:/app/api
+      - ./python_generator/domain:/app/domain
+      - ./python_generator/generator:/app/generator
+      - ./python_generator/language:/app/language
+      - ./python_generator/llm:/app/llm
+      - ./python_generator/data:/app/data
+      - ./python_generator/cli.py:/app/cli.py
+
+  web:
+    build:
+      context: ./flutter_app
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./flutter_app/lib:/app/lib
+      - ./flutter_app/web:/app/web
+      - ./flutter_app/assets:/app/assets
+      - ./flutter_app/pubspec.yaml:/app/pubspec.yaml:ro
+    stdin_open: true
+    tty: true
