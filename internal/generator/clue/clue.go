@@ -228,46 +228,50 @@ type batchClueResponse struct {
 
 func defaultClueSystemPrompt(langCode string) string {
 	if langCode == "fr" {
-		return `Tu es un auteur de mots croisés français expert.
-Tu dois créer des définitions variées et intéressantes.
-Réponds toujours en JSON valide avec le format suivant:
-{
-  "clues": [
-    {"prompt": "Définition du mot", "style": "definition", "difficulty": 2, "notes": ""},
-    {"prompt": "Jeu de mots amusant", "style": "wordplay", "difficulty": 4, "notes": ""}
-  ]
-}
+		return `Tu es un auteur de MOTS FLÉCHÉS français.
 
-Styles possibles: definition, wordplay, cultural, synonym, fill_in_blank
-La difficulté va de 1 (évident) à 5 (expert).`
+RÈGLE ABSOLUE: Les définitions doivent être TRÈS COURTES (2-4 mots MAXIMUM).
+PAS de phrases complètes. PAS de verbes conjugués. Style télégraphique.
+
+EXEMPLES CORRECTS:
+- "Volatile de basse-cour" (pour POULE)
+- "Fruit jaune" (pour BANANE)
+- "Capitale française" (pour PARIS)
+- "Métal précieux" (pour OR)
+- "Saison chaude" (pour ETE)
+
+EXEMPLES INCORRECTS (trop longs):
+- "Animal qui vit dans la basse-cour et pond des oeufs" ❌
+- "Fruit tropical de couleur jaune très apprécié" ❌
+
+Réponds en JSON:
+{"clues": [{"prompt": "Définition courte", "style": "definition", "difficulty": 2, "notes": ""}]}`
 	}
-	return `You are an expert crossword clue writer.
-Create varied and interesting clues.
-Always respond with valid JSON in this format:
-{
-  "clues": [
-    {"prompt": "Word definition", "style": "definition", "difficulty": 2, "notes": ""},
-    {"prompt": "Clever wordplay", "style": "wordplay", "difficulty": 4, "notes": ""}
-  ]
-}
+	return `You are a crossword clue writer for ARROW CROSSWORDS.
 
-Possible styles: definition, wordplay, cultural, synonym, fill_in_blank
-Difficulty ranges from 1 (obvious) to 5 (expert).`
+ABSOLUTE RULE: Clues must be VERY SHORT (2-4 words MAX).
+NO full sentences. NO conjugated verbs. Telegraphic style.
+
+CORRECT EXAMPLES:
+- "Yellow fruit" (for BANANA)
+- "French capital" (for PARIS)
+- "Precious metal" (for GOLD)
+
+Respond in JSON:
+{"clues": [{"prompt": "Short clue", "style": "definition", "difficulty": 2, "notes": ""}]}`
 }
 
 func defaultClueStyle(langCode string) string {
 	if langCode == "fr" {
-		return `Le style de définition français valorise:
-- L'élégance et la concision
-- Les jeux de mots subtils
-- Les références culturelles françaises
-- Les doubles sens raffinés`
+		return `STYLE MOTS FLÉCHÉS:
+- 2-4 mots MAXIMUM
+- Pas de phrase complète
+- Pas d'article au début si possible`
 	}
-	return `Clue style guidelines:
-- Be concise and elegant
-- Use clever wordplay when appropriate
-- Include cultural references
-- Vary difficulty levels`
+	return `ARROW CROSSWORD STYLE:
+- 2-4 words MAX
+- No full sentences
+- Telegraphic style`
 }
 
 func buildCluePrompt(answer string, thm *theme.Theme, targetDifficulty int, styleHint string, langCode string) string {
@@ -316,19 +320,11 @@ func buildBatchCluePrompt(slots []SlotInfo, thm *theme.Theme, langCode string) s
 		}
 
 		sb.WriteString(`
-Réponds en JSON avec ce format:
-{
-  "slots": [
-    {
-      "answer": "MOT",
-      "clues": [
-        {"prompt": "Définition", "style": "definition", "difficulty": 2, "notes": ""}
-      ]
-    }
-  ]
-}
+RAPPEL: Définitions TRÈS COURTES (2-4 mots max). Style mots fléchés.
+Exemples: "Fruit jaune", "Capitale française", "Métal précieux"
 
-Pour chaque mot, génère 2-3 définitions variées.`)
+Réponds en JSON:
+{"slots": [{"answer": "MOT", "clues": [{"prompt": "Définition courte", "style": "definition", "difficulty": 2, "notes": ""}]}]}`)
 	} else {
 		if thm != nil {
 			sb.WriteString(fmt.Sprintf("Theme: %s\n", thm.Title))
@@ -346,19 +342,11 @@ Pour chaque mot, génère 2-3 définitions variées.`)
 		}
 
 		sb.WriteString(`
-Respond in JSON with this format:
-{
-  "slots": [
-    {
-      "answer": "WORD",
-      "clues": [
-        {"prompt": "Definition", "style": "definition", "difficulty": 2, "notes": ""}
-      ]
-    }
-  ]
-}
+REMINDER: VERY SHORT clues (2-4 words max). Arrow crossword style.
+Examples: "Yellow fruit", "French capital", "Precious metal"
 
-For each word, generate 2-3 varied clues.`)
+Respond in JSON:
+{"slots": [{"answer": "WORD", "clues": [{"prompt": "Short clue", "style": "definition", "difficulty": 2, "notes": ""}]}]}`)
 	}
 
 	return sb.String()

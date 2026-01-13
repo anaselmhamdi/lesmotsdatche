@@ -57,22 +57,22 @@ func NewGridBuilder(cfg BuilderConfig) *GridBuilder {
 		cfg.TargetWords = 15
 	}
 
-	// Use target size as the working area, with small buffer
+	// Use target size as the working area - minimal buffer for density
 	targetRows := cfg.MaxRows
 	targetCols := cfg.MaxCols
-	if targetRows < 8 {
-		targetRows = 8
+	if targetRows < 7 {
+		targetRows = 7
 	}
-	if targetCols < 8 {
-		targetCols = 8
+	if targetCols < 7 {
+		targetCols = 7
 	}
 
 	return &GridBuilder{
 		rng:         rng,
 		targetRows:  targetRows,
 		targetCols:  targetCols,
-		maxRows:     targetRows + 2, // Small buffer
-		maxCols:     targetCols + 2,
+		maxRows:     targetRows + 1, // Minimal buffer for density
+		maxCols:     targetCols + 1,
 		usedWords:   make(map[string]bool),
 		letterIndex: make(map[rune][]letterPos),
 		minRow:      targetRows, // Will be updated on first placement
@@ -346,16 +346,21 @@ func (b *GridBuilder) findAllPlacements(word string) []placementCandidate {
 
 // scorePlacement scores a placement by compactness and crossings.
 func (b *GridBuilder) scorePlacement(p placementCandidate) float64 {
-	// Higher crossings = better (fills gaps)
-	crossingScore := float64(p.crossings) * 10.0
+	// REQUIRE at least 1 crossing (except for first few words)
+	if len(b.placed) > 2 && p.crossings == 0 {
+		return -1000 // Reject placements without crossings
+	}
 
-	// Less expansion = better (keeps grid compact)
-	expansionPenalty := float64(p.expansion) * 5.0
+	// Higher crossings = much better (fills gaps)
+	crossingScore := float64(p.crossings) * 50.0
 
-	// Bonus for staying within target bounds
+	// Heavy penalty for expansion (keeps grid compact)
+	expansionPenalty := float64(p.expansion) * 30.0
+
+	// Big bonus for staying within target bounds
 	boundaryBonus := 0.0
 	if b.isWithinTarget(p.row, p.col, p.dir) {
-		boundaryBonus = 20.0
+		boundaryBonus = 40.0
 	}
 
 	return crossingScore - expansionPenalty + boundaryBonus

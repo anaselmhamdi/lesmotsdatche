@@ -2,7 +2,7 @@
   "id": "daily-seed",
   "date": "2026-01-13",
   "language": "fr",
-  "title": "Cuisine Française",
+  "title": "L'Univers Astronomique",
   "author": "Les Mots d'Atche",
   "difficulty": 3,
   "status": "published",
@@ -12,137 +12,24 @@
         "type": "block"
       },
       {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
         "type": "clue",
-        "clue_down": "Préparation culinaire souvent à base de céréales pour enfants."
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "clue",
-        "clue_down": "Mot souvent utilisé en fin de phrase pour exprimer une demande de clarification."
-      }
-    ],
-    [
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "clue",
-        "clue_down": "Degré de qualité ou d'intensité, à atteindre dans un plat réussi."
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "clue",
-        "clue_down": "Ce qui peut capturer ou tromper, même lors d'une recette."
-      },
-      {
-        "type": "block"
+        "clue_across": "Relation amicale"
       },
       {
         "type": "letter",
-        "solution": "B"
-      },
-      {
-        "type": "block"
+        "solution": "A"
       },
       {
         "type": "letter",
-        "solution": "Q"
-      }
-    ],
-    [
-      {
-        "type": "clue",
-        "clue_down": "Unité monétaire ancienne et symbole de petite somme."
-      },
-      {
-        "type": "block"
+        "solution": "M"
       },
       {
         "type": "letter",
-        "solution": "N"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "clue",
-        "clue_down": "Éprouver une affection ou une préférence pour un plat."
-      },
-      {
-        "type": "block"
+        "solution": "I"
       },
       {
         "type": "letter",
-        "solution": "P"
-      },
-      {
-        "type": "clue",
-        "clue_across": "Premier stade de la vie souvent en cuisine pour ses protéines."
-      },
-      {
-        "type": "letter",
-        "solution": "O"
-      },
-      {
-        "type": "letter",
-        "solution": "E"
-      },
-      {
-        "type": "letter",
-        "solution": "U"
-      }
-    ],
-    [
-      {
-        "type": "letter",
-        "solution": "S"
-      },
-      {
-        "type": "letter",
-        "solution": "O"
+        "solution": "T"
       },
       {
         "type": "letter",
@@ -153,8 +40,132 @@
         "solution": "E"
       },
       {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "A"
+      }
+    ],
+    [
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
         "type": "clue",
-        "clue_across": "Mot de séparation définitive ou non."
+        "clue_across": "Pronom direct"
+      },
+      {
+        "type": "letter",
+        "solution": "T"
+      },
+      {
+        "type": "letter",
+        "solution": "O"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      }
+    ],
+    [
+      {
+        "type": "clue",
+        "clue_across": "Éprouver de l'affection"
+      },
+      {
+        "type": "letter",
+        "solution": "A"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      },
+      {
+        "type": "letter",
+        "solution": "M"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "letter",
+        "solution": "R"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "O"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "D"
+      }
+    ],
+    [
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "O"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "clue",
+        "clue_across": "Immobile"
+      },
+      {
+        "type": "letter",
+        "solution": "F"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      },
+      {
+        "type": "letter",
+        "solution": "X"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      }
+    ],
+    [
+      {
+        "type": "clue",
+        "clue_across": "Dernier au revoir"
       },
       {
         "type": "letter",
@@ -181,88 +192,43 @@
       },
       {
         "type": "letter",
-        "solution": "O"
-      }
-    ],
-    [
-      {
-        "type": "letter",
-        "solution": "O"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "V"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "I"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "E"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "I"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "I"
-      }
-    ],
-    [
-      {
-        "type": "letter",
-        "solution": "U"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "E"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "M"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "G"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
         "solution": "L"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "R"
+      }
+    ],
+    [
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "clue",
+        "clue_down": "Volatile migrateur"
+      },
+      {
+        "type": "letter",
+        "solution": "R"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
       },
       {
         "type": "block"
@@ -274,11 +240,87 @@
     [
       {
         "type": "clue",
-        "clue_across": "Substance qui compose l'univers, aussi trouvée dans les plats."
+        "clue_across": "Ruminant costaud"
       },
       {
         "type": "letter",
-        "solution": "M"
+        "solution": "B"
+      },
+      {
+        "type": "letter",
+        "solution": "O"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "letter",
+        "solution": "U"
+      },
+      {
+        "type": "letter",
+        "solution": "F"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      }
+    ],
+    [
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      },
+      {
+        "type": "clue",
+        "clue_down": "Animal têtu"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      }
+    ],
+    [
+      {
+        "type": "clue",
+        "clue_across": "Charmant"
+      },
+      {
+        "type": "letter",
+        "solution": "B"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
       },
       {
         "type": "letter",
@@ -286,7 +328,71 @@
       },
       {
         "type": "letter",
-        "solution": "T"
+        "solution": "U"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "clue",
+        "clue_down": "Concept mental"
+      },
+      {
+        "type": "block"
+      }
+    ],
+    [
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "N"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "clue",
+        "clue_across": "Accord affirmatif",
+        "clue_down": "H2O liquide"
+      },
+      {
+        "type": "letter",
+        "solution": "O"
+      },
+      {
+        "type": "letter",
+        "solution": "U"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      },
+      {
+        "type": "block"
+      }
+    ],
+    [
+      {
+        "type": "clue",
+        "clue_across": "Orgueilleuse"
+      },
+      {
+        "type": "letter",
+        "solution": "F"
       },
       {
         "type": "letter",
@@ -308,11 +414,11 @@
         "type": "block"
       },
       {
-        "type": "letter",
-        "solution": "L"
+        "type": "block"
       },
       {
-        "type": "block"
+        "type": "letter",
+        "solution": "D"
       },
       {
         "type": "block"
@@ -324,6 +430,57 @@
       },
       {
         "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "clue",
+        "clue_across": "Pour voler"
+      },
+      {
+        "type": "letter",
+        "solution": "A"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      },
+      {
+        "type": "letter",
+        "solution": "L"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "letter",
+        "solution": "S"
+      }
+    ],
+    [
+      {
+        "type": "block"
+      },
+      {
+        "type": "clue",
+        "clue_across": "Souhait secret"
+      },
+      {
+        "type": "letter",
+        "solution": "V"
+      },
+      {
+        "type": "letter",
+        "solution": "O"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
       },
       {
         "type": "letter",
@@ -337,65 +494,7 @@
       },
       {
         "type": "letter",
-        "solution": "R"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "clue",
-        "clue_across": "Volatile apprécié pour son foie gras."
-      },
-      {
-        "type": "letter",
-        "solution": "O"
-      },
-      {
-        "type": "letter",
-        "solution": "I"
-      },
-      {
-        "type": "letter",
         "solution": "E"
-      },
-      {
-        "type": "block"
-      }
-    ],
-    [
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "E"
-      },
-      {
-        "type": "block"
       },
       {
         "type": "block"
@@ -408,13 +507,13 @@
         "id": "1-across",
         "direction": "across",
         "number": 1,
-        "prompt": "Premier stade de la vie souvent en cuisine pour ses protéines.",
-        "answer": "OEU",
+        "prompt": "Relation amicale",
+        "answer": "AMITIE",
         "start": {
-          "row": 2,
-          "col": 9
+          "row": 0,
+          "col": 2
         },
-        "length": 3,
+        "length": 6,
         "reference_year_range": [
           0,
           0
@@ -425,13 +524,13 @@
         "id": "2-across",
         "direction": "across",
         "number": 2,
-        "prompt": "Texture douce prisée dans les étoffes et parfois en gastronomie.",
-        "answer": "SOIE",
+        "prompt": "Pronom direct",
+        "answer": "TOI",
         "start": {
-          "row": 3,
-          "col": 0
+          "row": 1,
+          "col": 7
         },
-        "length": 4,
+        "length": 3,
         "reference_year_range": [
           0,
           0
@@ -442,11 +541,11 @@
         "id": "3-across",
         "direction": "across",
         "number": 3,
-        "prompt": "Mot de séparation définitive ou non.",
-        "answer": "ADIEU",
+        "prompt": "Éprouver de l'affection",
+        "answer": "AIMER",
         "start": {
-          "row": 3,
-          "col": 5
+          "row": 2,
+          "col": 1
         },
         "length": 5,
         "reference_year_range": [
@@ -459,13 +558,13 @@
         "id": "4-across",
         "direction": "across",
         "number": 4,
-        "prompt": "Substance qui compose l'univers, aussi trouvée dans les plats.",
-        "answer": "MATIERE",
+        "prompt": "Immobile",
+        "answer": "FIXE",
         "start": {
-          "row": 6,
-          "col": 1
+          "row": 3,
+          "col": 6
         },
-        "length": 7,
+        "length": 4,
         "reference_year_range": [
           0,
           0
@@ -476,30 +575,62 @@
         "id": "5-across",
         "direction": "across",
         "number": 5,
-        "prompt": "Volatile apprécié pour son foie gras.",
-        "answer": "OIE",
+        "prompt": "Dernier au revoir",
+        "answer": "ADIEU",
         "start": {
-          "row": 7,
-          "col": 8
+          "row": 4,
+          "col": 1
         },
-        "length": 3,
+        "length": 5,
         "reference_year_range": [
           0,
           0
         ],
         "difficulty": 3
-      }
-    ],
-    "down": [
+      },
       {
-        "id": "6-down",
-        "direction": "down",
+        "id": "6-across",
+        "direction": "across",
         "number": 6,
-        "prompt": "Unité monétaire ancienne et symbole de petite somme.",
-        "answer": "SOU",
+        "prompt": "Ruminant costaud",
+        "answer": "BOEUF",
         "start": {
-          "row": 3,
-          "col": 0
+          "row": 6,
+          "col": 1
+        },
+        "length": 5,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
+        "id": "7-across",
+        "direction": "across",
+        "number": 7,
+        "prompt": "Charmant",
+        "answer": "BEAU",
+        "start": {
+          "row": 8,
+          "col": 1
+        },
+        "length": 4,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
+        "id": "8-across",
+        "direction": "across",
+        "number": 8,
+        "prompt": "Accord affirmatif",
+        "answer": "OUI",
+        "start": {
+          "row": 9,
+          "col": 6
         },
         "length": 3,
         "reference_year_range": [
@@ -509,16 +640,16 @@
         "difficulty": 3
       },
       {
-        "id": "7-down",
-        "direction": "down",
-        "number": 7,
-        "prompt": "Degré de qualité ou d'intensité, à atteindre dans un plat réussi.",
-        "answer": "NIVEAU",
+        "id": "9-across",
+        "direction": "across",
+        "number": 9,
+        "prompt": "Orgueilleuse",
+        "answer": "FIERE",
         "start": {
-          "row": 2,
-          "col": 2
+          "row": 10,
+          "col": 1
         },
-        "length": 6,
+        "length": 5,
         "reference_year_range": [
           0,
           0
@@ -526,13 +657,13 @@
         "difficulty": 3
       },
       {
-        "id": "8-down",
-        "direction": "down",
-        "number": 8,
-        "prompt": "Éprouver une affection ou une préférence pour un plat.",
-        "answer": "AIMER",
+        "id": "10-across",
+        "direction": "across",
+        "number": 10,
+        "prompt": "Pour voler",
+        "answer": "AILES",
         "start": {
-          "row": 3,
+          "row": 11,
           "col": 5
         },
         "length": 5,
@@ -543,50 +674,137 @@
         "difficulty": 3
       },
       {
-        "id": "9-down",
-        "direction": "down",
-        "number": 9,
-        "prompt": "Ce qui peut capturer ou tromper, même lors d'une recette.",
-        "answer": "PIEGE",
-        "start": {
-          "row": 2,
-          "col": 7
-        },
-        "length": 5,
-        "reference_year_range": [
-          0,
-          0
-        ],
-        "difficulty": 3
-      },
-      {
-        "id": "10-down",
-        "direction": "down",
-        "number": 10,
-        "prompt": "Préparation culinaire souvent à base de céréales pour enfants.",
-        "answer": "BOUILLIE",
-        "start": {
-          "row": 1,
-          "col": 9
-        },
-        "length": 8,
-        "reference_year_range": [
-          0,
-          0
-        ],
-        "difficulty": 3
-      },
-      {
-        "id": "11-down",
-        "direction": "down",
+        "id": "11-across",
+        "direction": "across",
         "number": 11,
-        "prompt": "Mot souvent utilisé en fin de phrase pour exprimer une demande de clarification.",
-        "answer": "QUOI",
+        "prompt": "Souhait secret",
+        "answer": "VOEU",
         "start": {
-          "row": 1,
-          "col": 11
+          "row": 12,
+          "col": 2
         },
         "length": 4,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      }
+    ],
+    "down": [
+      {
+        "id": "12-down",
+        "direction": "down",
+        "number": 12,
+        "prompt": "Volatile migrateur",
+        "answer": "OIE",
+        "start": {
+          "row": 6,
+          "col": 2
+        },
+        "length": 3,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
+        "id": "13-down",
+        "direction": "down",
+        "number": 13,
+        "prompt": "Capacité de souvenir",
+        "answer": "MEMOIRE",
+        "start": {
+          "row": 0,
+          "col": 3
+        },
+        "length": 7,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
+        "id": "14-down",
+        "direction": "down",
+        "number": 14,
+        "prompt": "Animal têtu",
+        "answer": "ANE",
+        "start": {
+          "row": 8,
+          "col": 3
+        },
+        "length": 3,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
+        "id": "15-down",
+        "direction": "down",
+        "number": 15,
+        "prompt": "H2O liquide",
+        "answer": "EAU",
+        "start": {
+          "row": 10,
+          "col": 5
+        },
+        "length": 3,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
+        "id": "16-down",
+        "direction": "down",
+        "number": 16,
+        "prompt": "Astres brillants",
+        "answer": "ETOILE",
+        "start": {
+          "row": 0,
+          "col": 7
+        },
+        "length": 6,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
+        "id": "17-down",
+        "direction": "down",
+        "number": 17,
+        "prompt": "Concept mental",
+        "answer": "IDEE",
+        "start": {
+          "row": 9,
+          "col": 8
+        },
+        "length": 4,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
+        "id": "18-down",
+        "direction": "down",
+        "number": 18,
+        "prompt": "Apporter soutien",
+        "answer": "AIDER",
+        "start": {
+          "row": 0,
+          "col": 9
+        },
+        "length": 5,
         "reference_year_range": [
           0,
           0
@@ -597,13 +815,13 @@
   },
   "metadata": {
     "theme_tags": [
-      "CUISINE",
-      "RECETTE",
-      "CHEF",
-      "PLAT",
-      "INGREDIENT"
+      "ETOILE",
+      "PLANETE",
+      "GALAXIE",
+      "COSMOS",
+      "ASTRONOMIE"
     ],
-    "notes": "Plats et ingrédients emblématiques de la cuisine française"
+    "notes": "Éléments et phénomènes de l'astronomie"
   },
-  "created_at": "2026-01-13T10:39:31.123976+01:00"
+  "created_at": "2026-01-13T11:11:23.752371+01:00"
 }
