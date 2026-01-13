@@ -1,9 +1,9 @@
 {
-  "id": "daily-seed",
+  "id": "fr-2026-01-13",
   "date": "2026-01-13",
   "language": "fr",
-  "title": "L'Univers Astronomique",
-  "author": "Les Mots d'Atche",
+  "title": "La Cuisine Française",
+  "author": "LLM Generator",
   "difficulty": 3,
   "status": "published",
   "grid": [
@@ -12,39 +12,48 @@
         "type": "block"
       },
       {
-        "type": "clue",
-        "clue_across": "Relation amicale"
-      },
-      {
-        "type": "letter",
-        "solution": "A"
-      },
-      {
-        "type": "letter",
-        "solution": "M"
-      },
-      {
-        "type": "letter",
-        "solution": "I"
-      },
-      {
-        "type": "letter",
-        "solution": "T"
-      },
-      {
-        "type": "letter",
-        "solution": "I"
-      },
-      {
-        "type": "letter",
-        "solution": "E"
+        "type": "block"
       },
       {
         "type": "block"
       },
       {
-        "type": "letter",
-        "solution": "A"
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "clue",
+        "clue_down": "Souffrance éprouvée"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "clue",
+        "clue_down": "Pour questionner"
       }
     ],
     [
@@ -58,8 +67,11 @@
         "type": "block"
       },
       {
-        "type": "letter",
-        "solution": "E"
+        "type": "clue",
+        "clue_down": "Souhait fervent"
+      },
+      {
+        "type": "block"
       },
       {
         "type": "block"
@@ -69,59 +81,31 @@
       },
       {
         "type": "clue",
-        "clue_across": "Pronom direct"
+        "clue_down": "Proposition novatrice"
+      },
+      {
+        "type": "block"
       },
       {
         "type": "letter",
-        "solution": "T"
+        "solution": "P"
       },
       {
-        "type": "letter",
-        "solution": "O"
+        "type": "block"
       },
       {
-        "type": "letter",
-        "solution": "I"
-      }
-    ],
-    [
+        "type": "block"
+      },
       {
         "type": "clue",
-        "clue_across": "Éprouver de l'affection"
-      },
-      {
-        "type": "letter",
-        "solution": "A"
-      },
-      {
-        "type": "letter",
-        "solution": "I"
-      },
-      {
-        "type": "letter",
-        "solution": "M"
-      },
-      {
-        "type": "letter",
-        "solution": "E"
-      },
-      {
-        "type": "letter",
-        "solution": "R"
+        "clue_down": "Symbole céleste"
       },
       {
         "type": "block"
       },
       {
         "type": "letter",
-        "solution": "O"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "D"
+        "solution": "Q"
       }
     ],
     [
@@ -129,317 +113,23 @@
         "type": "block"
       },
       {
-        "type": "block"
+        "type": "clue",
+        "clue_down": "Fraîchement arrivé"
       },
       {
         "type": "block"
       },
       {
         "type": "letter",
-        "solution": "O"
+        "solution": "V"
       },
       {
         "type": "block"
       },
       {
         "type": "clue",
-        "clue_across": "Immobile"
-      },
-      {
-        "type": "letter",
-        "solution": "F"
-      },
-      {
-        "type": "letter",
-        "solution": "I"
-      },
-      {
-        "type": "letter",
-        "solution": "X"
-      },
-      {
-        "type": "letter",
-        "solution": "E"
-      }
-    ],
-    [
-      {
-        "type": "clue",
-        "clue_across": "Dernier au revoir"
-      },
-      {
-        "type": "letter",
-        "solution": "A"
-      },
-      {
-        "type": "letter",
-        "solution": "D"
-      },
-      {
-        "type": "letter",
-        "solution": "I"
-      },
-      {
-        "type": "letter",
-        "solution": "E"
-      },
-      {
-        "type": "letter",
-        "solution": "U"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "L"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "R"
-      }
-    ],
-    [
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "clue",
-        "clue_down": "Volatile migrateur"
-      },
-      {
-        "type": "letter",
-        "solution": "R"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "E"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      }
-    ],
-    [
-      {
-        "type": "clue",
-        "clue_across": "Ruminant costaud"
-      },
-      {
-        "type": "letter",
-        "solution": "B"
-      },
-      {
-        "type": "letter",
-        "solution": "O"
-      },
-      {
-        "type": "letter",
-        "solution": "E"
-      },
-      {
-        "type": "letter",
-        "solution": "U"
-      },
-      {
-        "type": "letter",
-        "solution": "F"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      }
-    ],
-    [
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "I"
-      },
-      {
-        "type": "clue",
-        "clue_down": "Animal têtu"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      }
-    ],
-    [
-      {
-        "type": "clue",
-        "clue_across": "Charmant"
-      },
-      {
-        "type": "letter",
-        "solution": "B"
-      },
-      {
-        "type": "letter",
-        "solution": "E"
-      },
-      {
-        "type": "letter",
-        "solution": "A"
-      },
-      {
-        "type": "letter",
-        "solution": "U"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "clue",
-        "clue_down": "Concept mental"
-      },
-      {
-        "type": "block"
-      }
-    ],
-    [
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "N"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "clue",
-        "clue_across": "Accord affirmatif",
-        "clue_down": "H2O liquide"
-      },
-      {
-        "type": "letter",
-        "solution": "O"
-      },
-      {
-        "type": "letter",
-        "solution": "U"
-      },
-      {
-        "type": "letter",
-        "solution": "I"
-      },
-      {
-        "type": "block"
-      }
-    ],
-    [
-      {
-        "type": "clue",
-        "clue_across": "Orgueilleuse"
-      },
-      {
-        "type": "letter",
-        "solution": "F"
-      },
-      {
-        "type": "letter",
-        "solution": "I"
-      },
-      {
-        "type": "letter",
-        "solution": "E"
-      },
-      {
-        "type": "letter",
-        "solution": "R"
-      },
-      {
-        "type": "letter",
-        "solution": "E"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "D"
-      },
-      {
-        "type": "block"
-      }
-    ],
-    [
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "clue",
-        "clue_across": "Pour voler"
+        "clue_across": "Membres d'oiseau",
+        "clue_down": "Transaction commerciale"
       },
       {
         "type": "letter",
@@ -460,6 +150,22 @@
       {
         "type": "letter",
         "solution": "S"
+      },
+      {
+        "type": "clue",
+        "clue_across": "Personne choisie"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "letter",
+        "solution": "L"
+      },
+      {
+        "type": "letter",
+        "solution": "U"
       }
     ],
     [
@@ -467,12 +173,59 @@
         "type": "block"
       },
       {
-        "type": "clue",
-        "clue_across": "Souhait secret"
+        "type": "letter",
+        "solution": "N"
+      },
+      {
+        "type": "block"
       },
       {
         "type": "letter",
-        "solution": "V"
+        "solution": "O"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "A"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "D"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "T"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "O"
+      }
+    ],
+    [
+      {
+        "type": "clue",
+        "clue_across": "Volatile du foie gras"
       },
       {
         "type": "letter",
@@ -480,7 +233,136 @@
       },
       {
         "type": "letter",
+        "solution": "I"
+      },
+      {
+        "type": "letter",
         "solution": "E"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "F"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "clue",
+        "clue_down": "Exposée à l'air"
+      },
+      {
+        "type": "letter",
+        "solution": "N"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "O"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      }
+    ],
+    [
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "U"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "U"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "F"
+      },
+      {
+        "type": "clue",
+        "clue_across": "Force vitale"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "letter",
+        "solution": "N"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "letter",
+        "solution": "R"
+      },
+      {
+        "type": "letter",
+        "solution": "G"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "block"
+      }
+    ],
+    [
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "V"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "A"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
       },
       {
         "type": "letter",
@@ -493,8 +375,180 @@
         "type": "block"
       },
       {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "L"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      }
+    ],
+    [
+      {
+        "type": "block"
+      },
+      {
         "type": "letter",
         "solution": "E"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "clue",
+        "clue_across": "Feu destructeur"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      },
+      {
+        "type": "letter",
+        "solution": "N"
+      },
+      {
+        "type": "letter",
+        "solution": "C"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "letter",
+        "solution": "N"
+      },
+      {
+        "type": "letter",
+        "solution": "D"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      }
+    ],
+    [
+      {
+        "type": "clue",
+        "clue_across": "Porter assistance"
+      },
+      {
+        "type": "letter",
+        "solution": "A"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      },
+      {
+        "type": "letter",
+        "solution": "D"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "letter",
+        "solution": "R"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      }
+    ],
+    [
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "U"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "clue",
+        "clue_across": "Réaction sensible"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "letter",
+        "solution": "M"
+      },
+      {
+        "type": "letter",
+        "solution": "O"
+      },
+      {
+        "type": "letter",
+        "solution": "T"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      },
+      {
+        "type": "letter",
+        "solution": "O"
+      },
+      {
+        "type": "letter",
+        "solution": "N"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
       },
       {
         "type": "block"
@@ -507,13 +561,13 @@
         "id": "1-across",
         "direction": "across",
         "number": 1,
-        "prompt": "Relation amicale",
-        "answer": "AMITIE",
+        "prompt": "Membres d'oiseau",
+        "answer": "AILES",
         "start": {
-          "row": 0,
-          "col": 2
+          "row": 2,
+          "col": 6
         },
-        "length": 6,
+        "length": 5,
         "reference_year_range": [
           0,
           0
@@ -524,11 +578,11 @@
         "id": "2-across",
         "direction": "across",
         "number": 2,
-        "prompt": "Pronom direct",
-        "answer": "TOI",
+        "prompt": "Personne choisie",
+        "answer": "ELU",
         "start": {
-          "row": 1,
-          "col": 7
+          "row": 2,
+          "col": 12
         },
         "length": 3,
         "reference_year_range": [
@@ -541,13 +595,13 @@
         "id": "3-across",
         "direction": "across",
         "number": 3,
-        "prompt": "Éprouver de l'affection",
-        "answer": "AIMER",
+        "prompt": "Volatile du foie gras",
+        "answer": "OIE",
         "start": {
-          "row": 2,
+          "row": 4,
           "col": 1
         },
-        "length": 5,
+        "length": 3,
         "reference_year_range": [
           0,
           0
@@ -558,13 +612,13 @@
         "id": "4-across",
         "direction": "across",
         "number": 4,
-        "prompt": "Immobile",
-        "answer": "FIXE",
+        "prompt": "Force vitale",
+        "answer": "ENERGIE",
         "start": {
-          "row": 3,
-          "col": 6
+          "row": 5,
+          "col": 7
         },
-        "length": 4,
+        "length": 7,
         "reference_year_range": [
           0,
           0
@@ -575,13 +629,13 @@
         "id": "5-across",
         "direction": "across",
         "number": 5,
-        "prompt": "Dernier au revoir",
-        "answer": "ADIEU",
+        "prompt": "Feu destructeur",
+        "answer": "INCENDIE",
         "start": {
-          "row": 4,
-          "col": 1
+          "row": 7,
+          "col": 5
         },
-        "length": 5,
+        "length": 8,
         "reference_year_range": [
           0,
           0
@@ -592,10 +646,10 @@
         "id": "6-across",
         "direction": "across",
         "number": 6,
-        "prompt": "Ruminant costaud",
-        "answer": "BOEUF",
+        "prompt": "Porter assistance",
+        "answer": "AIDER",
         "start": {
-          "row": 6,
+          "row": 8,
           "col": 1
         },
         "length": 5,
@@ -609,81 +663,13 @@
         "id": "7-across",
         "direction": "across",
         "number": 7,
-        "prompt": "Charmant",
-        "answer": "BEAU",
-        "start": {
-          "row": 8,
-          "col": 1
-        },
-        "length": 4,
-        "reference_year_range": [
-          0,
-          0
-        ],
-        "difficulty": 3
-      },
-      {
-        "id": "8-across",
-        "direction": "across",
-        "number": 8,
-        "prompt": "Accord affirmatif",
-        "answer": "OUI",
+        "prompt": "Réaction sensible",
+        "answer": "EMOTION",
         "start": {
           "row": 9,
-          "col": 6
-        },
-        "length": 3,
-        "reference_year_range": [
-          0,
-          0
-        ],
-        "difficulty": 3
-      },
-      {
-        "id": "9-across",
-        "direction": "across",
-        "number": 9,
-        "prompt": "Orgueilleuse",
-        "answer": "FIERE",
-        "start": {
-          "row": 10,
-          "col": 1
-        },
-        "length": 5,
-        "reference_year_range": [
-          0,
-          0
-        ],
-        "difficulty": 3
-      },
-      {
-        "id": "10-across",
-        "direction": "across",
-        "number": 10,
-        "prompt": "Pour voler",
-        "answer": "AILES",
-        "start": {
-          "row": 11,
           "col": 5
         },
-        "length": 5,
-        "reference_year_range": [
-          0,
-          0
-        ],
-        "difficulty": 3
-      },
-      {
-        "id": "11-across",
-        "direction": "across",
-        "number": 11,
-        "prompt": "Souhait secret",
-        "answer": "VOEU",
-        "start": {
-          "row": 12,
-          "col": 2
-        },
-        "length": 4,
+        "length": 7,
         "reference_year_range": [
           0,
           0
@@ -693,14 +679,82 @@
     ],
     "down": [
       {
+        "id": "8-down",
+        "direction": "down",
+        "number": 8,
+        "prompt": "Fraîchement arrivé",
+        "answer": "NOUVEAU",
+        "start": {
+          "row": 3,
+          "col": 1
+        },
+        "length": 7,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
+        "id": "9-down",
+        "direction": "down",
+        "number": 9,
+        "prompt": "Souhait fervent",
+        "answer": "VOEU",
+        "start": {
+          "row": 2,
+          "col": 3
+        },
+        "length": 4,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
+        "id": "10-down",
+        "direction": "down",
+        "number": 10,
+        "prompt": "Transaction commerciale",
+        "answer": "AFFAIRE",
+        "start": {
+          "row": 3,
+          "col": 5
+        },
+        "length": 7,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
+        "id": "11-down",
+        "direction": "down",
+        "number": 11,
+        "prompt": "Proposition novatrice",
+        "answer": "IDEE",
+        "start": {
+          "row": 2,
+          "col": 7
+        },
+        "length": 4,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
         "id": "12-down",
         "direction": "down",
         "number": 12,
-        "prompt": "Volatile migrateur",
-        "answer": "OIE",
+        "prompt": "Exposée à l'air",
+        "answer": "NUE",
         "start": {
-          "row": 6,
-          "col": 2
+          "row": 5,
+          "col": 8
         },
         "length": 3,
         "reference_year_range": [
@@ -713,13 +767,13 @@
         "id": "13-down",
         "direction": "down",
         "number": 13,
-        "prompt": "Capacité de souvenir",
-        "answer": "MEMOIRE",
+        "prompt": "Souffrance éprouvée",
+        "answer": "PEINE",
         "start": {
-          "row": 0,
-          "col": 3
+          "row": 1,
+          "col": 9
         },
-        "length": 7,
+        "length": 5,
         "reference_year_range": [
           0,
           0
@@ -730,13 +784,13 @@
         "id": "14-down",
         "direction": "down",
         "number": 14,
-        "prompt": "Animal têtu",
-        "answer": "ANE",
+        "prompt": "Symbole céleste",
+        "answer": "ETOILE",
         "start": {
-          "row": 8,
-          "col": 3
+          "row": 2,
+          "col": 12
         },
-        "length": 3,
+        "length": 6,
         "reference_year_range": [
           0,
           0
@@ -747,64 +801,13 @@
         "id": "15-down",
         "direction": "down",
         "number": 15,
-        "prompt": "H2O liquide",
-        "answer": "EAU",
+        "prompt": "Pour questionner",
+        "answer": "QUOI",
         "start": {
-          "row": 10,
-          "col": 5
-        },
-        "length": 3,
-        "reference_year_range": [
-          0,
-          0
-        ],
-        "difficulty": 3
-      },
-      {
-        "id": "16-down",
-        "direction": "down",
-        "number": 16,
-        "prompt": "Astres brillants",
-        "answer": "ETOILE",
-        "start": {
-          "row": 0,
-          "col": 7
-        },
-        "length": 6,
-        "reference_year_range": [
-          0,
-          0
-        ],
-        "difficulty": 3
-      },
-      {
-        "id": "17-down",
-        "direction": "down",
-        "number": 17,
-        "prompt": "Concept mental",
-        "answer": "IDEE",
-        "start": {
-          "row": 9,
-          "col": 8
+          "row": 1,
+          "col": 14
         },
         "length": 4,
-        "reference_year_range": [
-          0,
-          0
-        ],
-        "difficulty": 3
-      },
-      {
-        "id": "18-down",
-        "direction": "down",
-        "number": 18,
-        "prompt": "Apporter soutien",
-        "answer": "AIDER",
-        "start": {
-          "row": 0,
-          "col": 9
-        },
-        "length": 5,
         "reference_year_range": [
           0,
           0
@@ -815,13 +818,13 @@
   },
   "metadata": {
     "theme_tags": [
-      "ETOILE",
-      "PLANETE",
-      "GALAXIE",
-      "COSMOS",
-      "ASTRONOMIE"
+      "CUISINE",
+      "PLAT",
+      "INGREDIENT",
+      "RECETTE",
+      "GOUT"
     ],
-    "notes": "Éléments et phénomènes de l'astronomie"
+    "notes": "Ingrédients et plats de la gastronomie française"
   },
-  "created_at": "2026-01-13T11:11:23.752371+01:00"
+  "created_at": "2026-01-13T11:36:23.231635+01:00"
 }

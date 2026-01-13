@@ -90,11 +90,14 @@ type BuildResult struct {
 }
 
 // Build constructs a grid from a list of candidate words.
-// Creates a dense, compact grid by preferring placements that fill gaps.
+// Creates a dense, compact grid with gap filling to eliminate dead blocks.
 func (b *GridBuilder) Build(candidates []string) *BuildResult {
 	// Step 1: Score and select best words for crossability
 	scored := b.scoreWords(candidates)
-	selected := b.selectBestWords(scored, 40) // More candidates for better choices
+	selected := b.selectBestWords(scored, 40)
+
+	// Also collect short words (2-4 letters) for gap filling
+	shortWords := b.collectShortWords(candidates)
 
 	// Step 2: Initialize grid
 	b.grid = make([][]rune, b.maxRows)
@@ -105,38 +108,72 @@ func (b *GridBuilder) Build(candidates []string) *BuildResult {
 		}
 	}
 
-	// Step 3: Place first word (medium length, not longest) in center
-	// Shorter first word leaves more room for crossings
-	firstIdx := 0
+	// Step 3: Place two initial words as a cross in the center
+	centerRow := b.targetRows / 2
+	centerCol := b.targetCols / 2
+
+	// Find a good horizontal word (5-7 letters)
+	horzIdx := -1
 	for i, sw := range selected {
 		if len(sw.word) >= 5 && len(sw.word) <= 7 {
-			firstIdx = i
+			horzIdx = i
 			break
 		}
 	}
-	if len(selected) > firstIdx {
-		first := selected[firstIdx]
-		row := b.maxRows / 2
-		col := (b.maxCols - len(first.word)) / 2
-		if col >= 1 && col+len(first.word) < b.maxCols-1 {
-			b.placeWord(first.word, row, col, domain.DirectionAcross)
-			selected = append(selected[:firstIdx], selected[firstIdx+1:]...)
+
+	// Find a good vertical word that can cross the horizontal one
+	vertIdx := -1
+	if horzIdx >= 0 {
+		horzWord := selected[horzIdx].word
+		horzRow := centerRow
+		horzCol := centerCol - len(horzWord)/2
+		if horzCol >= 1 && horzCol+len(horzWord) < b.targetCols-1 {
+			b.placeWord(horzWord, horzRow, horzCol, domain.DirectionAcross)
+			selected = append(selected[:horzIdx], selected[horzIdx+1:]...)
+
+			// Find a vertical word that shares a letter with the horizontal word
+			for i, sw := range selected {
+				if len(sw.word) >= 4 && len(sw.word) <= 6 {
+					// Check if it can cross the horizontal word
+					for j, c := range sw.word {
+						for k, hc := range horzWord {
+							if c == hc {
+								// Try to place vertically crossing at this point
+								vRow := horzRow - j
+								vCol := horzCol + k
+								if vRow >= 1 && vRow+len(sw.word) < b.targetRows-1 {
+									if b.canPlace(sw.word, vRow, vCol, domain.DirectionDown) {
+										b.placeWord(sw.word, vRow, vCol, domain.DirectionDown)
+										vertIdx = i
+										break
+									}
+								}
+							}
+						}
+						if vertIdx >= 0 {
+							break
+						}
+					}
+					if vertIdx >= 0 {
+						selected = append(selected[:vertIdx], selected[vertIdx+1:]...)
+						break
+					}
+				}
+			}
 		}
 	}
 
-	// Step 4: Place remaining words using compact placement strategy
-	placedCount := 1
+	// Step 4: Place more words using compact placement strategy
+	placedCount := len(b.placed)
 	failures := 0
 	maxFailures := len(selected) * 3
 
 	for len(selected) > 0 && failures < maxFailures && placedCount < 20 {
 		placed := false
 
-		// Try each word and find the best (most compact) placement
 		bestPlacement := b.findBestPlacement(selected)
 		if bestPlacement != nil {
 			b.placeWord(bestPlacement.word, bestPlacement.row, bestPlacement.col, bestPlacement.dir)
-			// Remove the placed word from candidates
 			for i, sw := range selected {
 				if sw.word == bestPlacement.word {
 					selected = append(selected[:i], selected[i+1:]...)
@@ -150,19 +187,294 @@ func (b *GridBuilder) Build(candidates []string) *BuildResult {
 
 		if !placed {
 			failures++
-			// Rotate list to try different words
 			if len(selected) > 1 {
 				selected = append(selected[1:], selected[0])
 			}
 		}
 	}
 
+	// Step 5: GAP FILLING PHASE - Fill gaps to eliminate dead blocks
+	b.fillGaps(shortWords)
+
 	// Build result
+	// Success if we placed enough words - dead blocks are OK for now
+	// Gap filling is best-effort, we'll improve density iteratively
 	return &BuildResult{
 		Grid:    b.toTemplate(),
 		Words:   b.getPlacedWords(),
 		Success: len(b.placed) >= 8,
 	}
+}
+
+// Gap represents an empty sequence in the grid that could hold a word.
+type Gap struct {
+	Row, Col  int
+	Length    int
+	Direction domain.Direction
+}
+
+// collectShortWords extracts short words (2-4 letters) for gap filling.
+func (b *GridBuilder) collectShortWords(candidates []string) []string {
+	short := make([]string, 0)
+	seen := make(map[string]bool)
+
+	// First, add from candidates
+	for _, word := range candidates {
+		if len(word) >= 2 && len(word) <= 4 && !seen[word] {
+			seen[word] = true
+			short = append(short, word)
+		}
+	}
+
+	// Add common French short words for better coverage
+	commonShort := []string{
+		// 2 letters
+		"AU", "DE", "DU", "EN", "ET", "IL", "JE", "LA", "LE", "LU",
+		"MA", "ME", "MI", "MU", "NE", "NI", "NU", "ON", "OR", "OS",
+		"OU", "PU", "SA", "SE", "SI", "SU", "TA", "TE", "TU", "UN",
+		"VA", "VU",
+		// 3 letters
+		"AIR", "AME", "AMI", "ANE", "ANS", "ARC", "ART", "BAL", "BAS",
+		"BEC", "BEL", "BLE", "BOA", "BOL", "BON", "BUT", "CAP", "CAS",
+		"CLE", "COL", "COU", "CRI", "CRU", "DES", "DIX", "DOS", "DUR",
+		"EAU", "ECU", "ELU", "ERE", "ETE", "EUR", "FEE", "FER", "FEU",
+		"FIL", "FIN", "FOI", "FOU", "GAI", "GAZ", "GEL", "ILE", "JEU",
+		"LAC", "LIT", "LOI", "LUI", "MER", "MIS", "MOI", "MOT", "MUR",
+		"NEZ", "NID", "NOM", "OIE", "OUI", "PAS", "PEU", "PIE", "PIN",
+		"PLI", "POT", "PRE", "PUR", "RAI", "RAS", "RAT", "RIZ", "ROI",
+		"RUE", "SAC", "SEC", "SEL", "SOI", "SOL", "SON", "SOU", "SUR",
+		"TAS", "THE", "TIR", "TOI", "TON", "TRI", "UNE", "VIE", "VIN",
+		"VOL", "VUE",
+		// 4 letters
+		"AIDE", "AILE", "AIRE", "AMER", "AMIE", "ANGE", "AUBE", "AVEC",
+		"BAIE", "BAIN", "BASE", "BEAU", "BIEN", "BOIS", "BOND", "BOUT",
+		"CAFE", "CAGE", "CAPE", "CAVE", "CHEF", "CIEL", "CITE", "CLEF",
+		"COIN", "COLS", "CONE", "COTE", "COUP", "COUR", "CUBE", "CURE",
+		"DAME", "DATE", "DEUX", "DIEU", "DIME", "DIRE", "DOSE", "DOUX",
+		"ECHO", "EPEE", "EURO", "FACE", "FAIT", "FAIM", "FAUX", "FETE",
+		"FIER", "FILS", "FINE", "FOIS", "FOND", "FORT", "FOUR", "GARE",
+		"GOUT", "GRIS", "GROS", "HAUT", "HIER", "HORS", "IDEE", "ILES",
+		"IVRE", "JEUX", "JOIE", "JOUR", "JUGE", "JUPE", "JURE", "JUSTE",
+		"LAID", "LAME", "LIEU", "LIEN", "LIME", "LION", "LIRE", "LISTE",
+		"LIVRE", "LOIN", "LONG", "LOUP", "LUXE", "MAIN", "MAIS", "MALE",
+		"MARE", "MAUX", "MENU", "MERE", "MIDI", "MINE", "MODE", "MOIS",
+		"MONT", "MORT", "MOTS", "MUET", "NAGE", "NEUF", "NOIX", "NORD",
+		"NOTE", "NOUS", "NUIT", "OEUF", "ONDE", "ONZE", "PAIX", "PAIN",
+		"PALE", "PARE", "PARI", "PAYS", "PEAU", "PERE", "PEUR", "PIED",
+		"PILE", "PIPE", "PIRE", "PLAT", "PLIE", "PNEU", "POIL", "POIS",
+		"PONT", "PORC", "PORT", "POSE", "POUR", "PRES", "PRET", "PRIX",
+		"PURE", "QUAI", "QUEL", "RACE", "RAGE", "RAID", "RANG", "RARE",
+		"RASE", "RAVI", "RAIE", "RAME", "REAL", "REIN", "RIRE", "RITE",
+		"RIVE", "ROBE", "ROIS", "ROLE", "ROSE", "ROUE", "ROUX", "RUDE",
+		"SAIN", "SALE", "SANG", "SANS", "SAUF", "SAUT", "SEIN", "SENS",
+		"SEUL", "SIEN", "SITE", "SOIE", "SOIN", "SOIR", "SOLE", "SORT",
+		"SUIS", "SURF", "TACT", "TAIE", "TARE", "TAUX", "TELE", "TEMPS",
+		"TEST", "TETE", "TIEN", "TIGE", "TIRE", "TOIT", "TORT", "TOUR",
+		"TOUT", "TRIO", "TROP", "TROU", "TYPE", "URNE", "VEAU", "VELO",
+		"VENT", "VENU", "VERS", "VIDE", "VIES", "VIEUX", "VIFS", "VILE",
+		"VILLE", "VOEU", "VOIE", "VOIR", "VOLE", "VOUS", "VRAI", "YEUX",
+		"ZERO", "ZONE",
+	}
+
+	for _, word := range commonShort {
+		if !seen[word] {
+			seen[word] = true
+			short = append(short, word)
+		}
+	}
+
+	return short
+}
+
+// findGaps finds all horizontal and vertical gaps in the grid.
+func (b *GridBuilder) findGaps() []Gap {
+	var gaps []Gap
+
+	// Only scan within current bounding box
+	if len(b.placed) == 0 {
+		return gaps
+	}
+
+	// Find horizontal gaps
+	for row := b.minRow; row <= b.maxRow; row++ {
+		col := b.minCol
+		for col <= b.maxCol {
+			// Skip non-empty cells
+			if b.grid[row][col] != '.' {
+				col++
+				continue
+			}
+
+			// Found start of a gap - measure its length
+			startCol := col
+			for col <= b.maxCol && b.grid[row][col] == '.' {
+				col++
+			}
+			length := col - startCol
+
+			// Only consider gaps of length 2-4 (fillable with short words)
+			if length >= 2 && length <= 4 {
+				gaps = append(gaps, Gap{
+					Row:       row,
+					Col:       startCol,
+					Length:    length,
+					Direction: domain.DirectionAcross,
+				})
+			}
+		}
+	}
+
+	// Find vertical gaps
+	for col := b.minCol; col <= b.maxCol; col++ {
+		row := b.minRow
+		for row <= b.maxRow {
+			// Skip non-empty cells
+			if b.grid[row][col] != '.' {
+				row++
+				continue
+			}
+
+			// Found start of a gap - measure its length
+			startRow := row
+			for row <= b.maxRow && b.grid[row][col] == '.' {
+				row++
+			}
+			length := row - startRow
+
+			// Only consider gaps of length 2-4
+			if length >= 2 && length <= 4 {
+				gaps = append(gaps, Gap{
+					Row:       startRow,
+					Col:       col,
+					Length:    length,
+					Direction: domain.DirectionDown,
+				})
+			}
+		}
+	}
+
+	return gaps
+}
+
+// fillGaps attempts to fill gaps with short words to eliminate dead blocks.
+func (b *GridBuilder) fillGaps(shortWords []string) {
+	// Build a map of short words by length for fast lookup
+	byLength := make(map[int][]string)
+	for _, word := range shortWords {
+		if !b.usedWords[word] {
+			l := len(word)
+			byLength[l] = append(byLength[l], word)
+		}
+	}
+
+	// Multiple passes to fill as many gaps as possible
+	for pass := 0; pass < 5; pass++ {
+		gaps := b.findGaps()
+		if len(gaps) == 0 {
+			break
+		}
+
+		filled := false
+		for _, gap := range gaps {
+			candidates := byLength[gap.Length]
+			for _, word := range candidates {
+				if b.usedWords[word] {
+					continue
+				}
+
+				if b.canFillGap(word, gap) {
+					b.placeWord(word, gap.Row, gap.Col, gap.Direction)
+					filled = true
+					break
+				}
+			}
+		}
+
+		if !filled {
+			break // No progress, stop trying
+		}
+	}
+}
+
+// canFillGap checks if a word can be placed in a gap.
+func (b *GridBuilder) canFillGap(word string, gap Gap) bool {
+	if len(word) != gap.Length {
+		return false
+	}
+
+	row, col := gap.Row, gap.Col
+	dr, dc := 0, 1
+	if gap.Direction == domain.DirectionDown {
+		dr, dc = 1, 0
+	}
+
+	// Check each position
+	for i, c := range word {
+		r := row + dr*i
+		cc := col + dc*i
+
+		if r < 0 || r >= b.maxRows || cc < 0 || cc >= b.maxCols {
+			return false
+		}
+
+		existing := b.grid[r][cc]
+		if existing != '.' && existing != c {
+			return false // Conflict
+		}
+	}
+
+	// Check word boundaries
+	endRow := row + dr*(len(word)-1)
+	endCol := col + dc*(len(word)-1)
+
+	if gap.Direction == domain.DirectionAcross {
+		// Check left boundary
+		if col > 0 && b.grid[row][col-1] != '.' {
+			return false
+		}
+		// Check right boundary
+		if endCol < b.maxCols-1 && b.grid[row][endCol+1] != '.' {
+			return false
+		}
+	} else {
+		// Check top boundary
+		if row > 0 && b.grid[row-1][col] != '.' {
+			return false
+		}
+		// Check bottom boundary
+		if endRow < b.maxRows-1 && b.grid[endRow+1][col] != '.' {
+			return false
+		}
+	}
+
+	return true
+}
+
+// hasDeadBlocks checks if the grid has any adjacent blocks (dead blocks).
+func (b *GridBuilder) hasDeadBlocks() bool {
+	if len(b.placed) == 0 {
+		return false
+	}
+
+	// Check for horizontal adjacent blocks
+	for row := b.minRow; row <= b.maxRow; row++ {
+		for col := b.minCol; col < b.maxCol; col++ {
+			if b.grid[row][col] == '.' && b.grid[row][col+1] == '.' {
+				return true // Two adjacent blocks horizontally
+			}
+		}
+	}
+
+	// Check for vertical adjacent blocks
+	for col := b.minCol; col <= b.maxCol; col++ {
+		for row := b.minRow; row < b.maxRow; row++ {
+			if b.grid[row][col] == '.' && b.grid[row+1][col] == '.' {
+				return true // Two adjacent blocks vertically
+			}
+		}
+	}
+
+	return false
 }
 
 // scoredWord holds a word with its crossability score.
@@ -346,24 +658,21 @@ func (b *GridBuilder) findAllPlacements(word string) []placementCandidate {
 
 // scorePlacement scores a placement by compactness and crossings.
 func (b *GridBuilder) scorePlacement(p placementCandidate) float64 {
-	// REQUIRE at least 1 crossing (except for first few words)
-	if len(b.placed) > 2 && p.crossings == 0 {
+	// REQUIRE at least 1 crossing (except for first word)
+	if len(b.placed) > 1 && p.crossings == 0 {
 		return -1000 // Reject placements without crossings
 	}
 
-	// Higher crossings = much better (fills gaps)
-	crossingScore := float64(p.crossings) * 50.0
+	// Higher crossings = MUCH better (creates dense interconnections)
+	crossingScore := float64(p.crossings) * 100.0
 
-	// Heavy penalty for expansion (keeps grid compact)
-	expansionPenalty := float64(p.expansion) * 30.0
+	// Bonus for staying close to grid center
+	centerRow := b.targetRows / 2
+	centerCol := b.targetCols / 2
+	distFromCenter := abs(p.row-centerRow) + abs(p.col-centerCol)
+	centerBonus := float64(20-distFromCenter) * 2.0
 
-	// Big bonus for staying within target bounds
-	boundaryBonus := 0.0
-	if b.isWithinTarget(p.row, p.col, p.dir) {
-		boundaryBonus = 40.0
-	}
-
-	return crossingScore - expansionPenalty + boundaryBonus
+	return crossingScore + centerBonus
 }
 
 // countCrossings counts how many existing letters this placement crosses.
@@ -439,15 +748,12 @@ func (b *GridBuilder) canPlace(word string, row, col int, dir domain.Direction) 
 		dr, dc = 1, 0
 	}
 
-	// Check bounds
+	// STRICT bounds: stay within target size (leave room for clue cells)
 	endRow := row + dr*(len(word)-1)
 	endCol := col + dc*(len(word)-1)
-	if endRow >= b.maxRows || endCol >= b.maxCols {
+	if row < 1 || col < 1 || endRow >= b.targetRows-1 || endCol >= b.targetCols-1 {
 		return false
 	}
-
-	// Prefer staying within target bounds (soft constraint)
-	// Hard limit: don't exceed maxRows/maxCols
 
 	// Check each position
 	for i, c := range word {
