@@ -36,20 +36,15 @@
         "type": "block"
       },
       {
-        "type": "block"
+        "type": "clue",
+        "clue_down": "Préparation culinaire souvent à base de céréales pour enfants."
       },
       {
         "type": "block"
       },
       {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "I"
+        "type": "clue",
+        "clue_down": "Mot souvent utilisé en fin de phrase pour exprimer une demande de clarification."
       }
     ],
     [
@@ -60,10 +55,8 @@
         "type": "block"
       },
       {
-        "type": "block"
-      },
-      {
-        "type": "block"
+        "type": "clue",
+        "clue_down": "Degré de qualité ou d'intensité, à atteindre dans un plat réussi."
       },
       {
         "type": "block"
@@ -79,306 +72,77 @@
       },
       {
         "type": "clue",
-        "clue_across": "Appareil utilisé pour se déplacer rapidement d’un pays à l’autre par voie aérienne."
-      },
-      {
-        "type": "letter",
-        "solution": "A"
-      },
-      {
-        "type": "letter",
-        "solution": "V"
-      },
-      {
-        "type": "letter",
-        "solution": "I"
-      },
-      {
-        "type": "letter",
-        "solution": "O"
-      },
-      {
-        "type": "letter",
-        "solution": "N"
-      }
-    ],
-    [
-      {
-        "type": "block"
+        "clue_down": "Ce qui peut capturer ou tromper, même lors d'une recette."
       },
       {
         "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "clue",
-        "clue_down": "Accessoire de table pour s'essuyer durant le repas."
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "C"
-      }
-    ],
-    [
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "clue",
-        "clue_across": "Récipient métallique avec une poignée, utilisé pour cuire ou réchauffer les aliments.",
-        "clue_down": "Expression d'un désir ou d'une aspiration."
-      },
-      {
-        "type": "letter",
-        "solution": "C"
-      },
-      {
-        "type": "letter",
-        "solution": "A"
-      },
-      {
-        "type": "letter",
-        "solution": "S"
-      },
-      {
-        "type": "letter",
-        "solution": "S"
-      },
-      {
-        "type": "letter",
-        "solution": "E"
-      },
-      {
-        "type": "letter",
-        "solution": "R"
-      },
-      {
-        "type": "letter",
-        "solution": "O"
-      },
-      {
-        "type": "letter",
-        "solution": "L"
-      },
-      {
-        "type": "letter",
-        "solution": "E"
-      }
-    ],
-    [
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "V"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "E"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "N"
-      }
-    ],
-    [
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "clue",
-        "clue_across": "Accessoire de table pour contenir du poivre moulu."
-      },
-      {
-        "type": "letter",
-        "solution": "P"
-      },
-      {
-        "type": "letter",
-        "solution": "O"
-      },
-      {
-        "type": "letter",
-        "solution": "I"
-      },
-      {
-        "type": "letter",
-        "solution": "V"
-      },
-      {
-        "type": "letter",
-        "solution": "R"
-      },
-      {
-        "type": "letter",
-        "solution": "I"
-      },
-      {
-        "type": "letter",
-        "solution": "E"
-      },
-      {
-        "type": "letter",
-        "solution": "R"
-      },
-      {
-        "type": "letter",
-        "solution": "E"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "D"
-      }
-    ],
-    [
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "E"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "V"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "I"
-      }
-    ],
-    [
-      {
-        "type": "block"
-      },
-      {
-        "type": "clue",
-        "clue_across": "Conteneur à long col utilisé pour stocker du vin ou de l'eau."
       },
       {
         "type": "letter",
         "solution": "B"
       },
       {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "Q"
+      }
+    ],
+    [
+      {
+        "type": "clue",
+        "clue_down": "Unité monétaire ancienne et symbole de petite somme."
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "N"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "clue",
+        "clue_down": "Éprouver une affection ou une préférence pour un plat."
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "P"
+      },
+      {
+        "type": "clue",
+        "clue_across": "Premier stade de la vie souvent en cuisine pour ses protéines."
+      },
+      {
         "type": "letter",
         "solution": "O"
       },
       {
         "type": "letter",
-        "solution": "U"
-      },
-      {
-        "type": "letter",
-        "solution": "T"
-      },
-      {
-        "type": "letter",
         "solution": "E"
+      },
+      {
+        "type": "letter",
+        "solution": "U"
+      }
+    ],
+    [
+      {
+        "type": "letter",
+        "solution": "S"
+      },
+      {
+        "type": "letter",
+        "solution": "O"
       },
       {
         "type": "letter",
@@ -386,64 +150,41 @@
       },
       {
         "type": "letter",
-        "solution": "L"
+        "solution": "E"
+      },
+      {
+        "type": "clue",
+        "clue_across": "Mot de séparation définitive ou non."
       },
       {
         "type": "letter",
-        "solution": "L"
+        "solution": "A"
+      },
+      {
+        "type": "letter",
+        "solution": "D"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
       },
       {
         "type": "letter",
         "solution": "E"
       },
       {
-        "type": "clue",
-        "clue_down": "Cet aliment est souvent présenté en coque ou sur le plat."
+        "type": "letter",
+        "solution": "U"
       },
       {
         "type": "block"
       },
       {
         "type": "letter",
-        "solution": "E"
+        "solution": "O"
       }
     ],
     [
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "clue",
-        "clue_down": "Personnalité politique à la tête d'une ville."
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "E"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
       {
         "type": "letter",
         "solution": "O"
@@ -452,10 +193,53 @@
         "type": "block"
       },
       {
+        "type": "letter",
+        "solution": "V"
+      },
+      {
         "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
       }
     ],
     [
+      {
+        "type": "letter",
+        "solution": "U"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
       {
         "type": "block"
       },
@@ -467,229 +251,54 @@
         "solution": "M"
       },
       {
-        "type": "clue",
-        "clue_across": "Ensemble des faits et événements relatifs à l'évolution de l'humanité."
-      },
-      {
-        "type": "letter",
-        "solution": "H"
-      },
-      {
-        "type": "letter",
-        "solution": "I"
-      },
-      {
-        "type": "letter",
-        "solution": "S"
-      },
-      {
-        "type": "letter",
-        "solution": "T"
-      },
-      {
-        "type": "letter",
-        "solution": "O"
-      },
-      {
-        "type": "letter",
-        "solution": "I"
-      },
-      {
-        "type": "letter",
-        "solution": "R"
-      },
-      {
-        "type": "letter",
-        "solution": "E"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      }
-    ],
-    [
-      {
-        "type": "block"
-      },
-      {
         "type": "block"
       },
       {
         "type": "letter",
-        "solution": "A"
+        "solution": "G"
       },
       {
         "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "T"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "U"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      }
-    ],
-    [
-      {
-        "type": "letter",
-        "solution": "C"
-      },
-      {
-        "type": "letter",
-        "solution": "U"
-      },
-      {
-        "type": "letter",
-        "solution": "I"
-      },
-      {
-        "type": "letter",
-        "solution": "S"
-      },
-      {
-        "type": "letter",
-        "solution": "I"
-      },
-      {
-        "type": "letter",
-        "solution": "N"
-      },
-      {
-        "type": "letter",
-        "solution": "I"
-      },
-      {
-        "type": "letter",
-        "solution": "E"
-      },
-      {
-        "type": "letter",
-        "solution": "R"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "F"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      }
-    ],
-    [
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "letter",
-        "solution": "R"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      },
-      {
-        "type": "block"
-      }
-    ],
-    [
-      {
-        "type": "block"
-      },
-      {
-        "type": "clue",
-        "clue_across": "Morceau de viande aplati, souvent cuit à la poêle."
-      },
-      {
-        "type": "letter",
-        "solution": "E"
-      },
-      {
-        "type": "letter",
-        "solution": "S"
-      },
-      {
-        "type": "letter",
-        "solution": "C"
-      },
-      {
-        "type": "letter",
-        "solution": "A"
       },
       {
         "type": "letter",
         "solution": "L"
       },
       {
-        "type": "letter",
-        "solution": "O"
+        "type": "block"
+      },
+      {
+        "type": "block"
+      }
+    ],
+    [
+      {
+        "type": "clue",
+        "clue_across": "Substance qui compose l'univers, aussi trouvée dans les plats."
       },
       {
         "type": "letter",
-        "solution": "P"
+        "solution": "M"
+      },
+      {
+        "type": "letter",
+        "solution": "A"
+      },
+      {
+        "type": "letter",
+        "solution": "T"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "letter",
+        "solution": "R"
       },
       {
         "type": "letter",
@@ -699,7 +308,91 @@
         "type": "block"
       },
       {
+        "type": "letter",
+        "solution": "L"
+      },
+      {
         "type": "block"
+      },
+      {
+        "type": "block"
+      }
+    ],
+    [
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "U"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "R"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "clue",
+        "clue_across": "Volatile apprécié pour son foie gras."
+      },
+      {
+        "type": "letter",
+        "solution": "O"
+      },
+      {
+        "type": "letter",
+        "solution": "I"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
+      },
+      {
+        "type": "block"
+      }
+    ],
+    [
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "block"
+      },
+      {
+        "type": "letter",
+        "solution": "E"
       },
       {
         "type": "block"
@@ -715,13 +408,13 @@
         "id": "1-across",
         "direction": "across",
         "number": 1,
-        "prompt": "Appareil utilisé pour se déplacer rapidement d’un pays à l’autre par voie aérienne.",
-        "answer": "AVION",
+        "prompt": "Premier stade de la vie souvent en cuisine pour ses protéines.",
+        "answer": "OEU",
         "start": {
-          "row": 1,
+          "row": 2,
           "col": 9
         },
-        "length": 5,
+        "length": 3,
         "reference_year_range": [
           0,
           0
@@ -732,13 +425,13 @@
         "id": "2-across",
         "direction": "across",
         "number": 2,
-        "prompt": "Récipient métallique avec une poignée, utilisé pour cuire ou réchauffer les aliments.",
-        "answer": "CASSEROLE",
+        "prompt": "Texture douce prisée dans les étoffes et parfois en gastronomie.",
+        "answer": "SOIE",
         "start": {
           "row": 3,
-          "col": 5
+          "col": 0
         },
-        "length": 9,
+        "length": 4,
         "reference_year_range": [
           0,
           0
@@ -749,13 +442,13 @@
         "id": "3-across",
         "direction": "across",
         "number": 3,
-        "prompt": "Accessoire de table pour contenir du poivre moulu.",
-        "answer": "POIVRIERE",
+        "prompt": "Mot de séparation définitive ou non.",
+        "answer": "ADIEU",
         "start": {
-          "row": 5,
-          "col": 3
+          "row": 3,
+          "col": 5
         },
-        "length": 9,
+        "length": 5,
         "reference_year_range": [
           0,
           0
@@ -766,13 +459,13 @@
         "id": "4-across",
         "direction": "across",
         "number": 4,
-        "prompt": "Conteneur à long col utilisé pour stocker du vin ou de l'eau.",
-        "answer": "BOUTEILLE",
+        "prompt": "Substance qui compose l'univers, aussi trouvée dans les plats.",
+        "answer": "MATIERE",
         "start": {
-          "row": 7,
-          "col": 2
+          "row": 6,
+          "col": 1
         },
-        "length": 9,
+        "length": 7,
         "reference_year_range": [
           0,
           0
@@ -783,47 +476,13 @@
         "id": "5-across",
         "direction": "across",
         "number": 5,
-        "prompt": "Ensemble des faits et événements relatifs à l'évolution de l'humanité.",
-        "answer": "HISTOIRE",
+        "prompt": "Volatile apprécié pour son foie gras.",
+        "answer": "OIE",
         "start": {
-          "row": 9,
-          "col": 4
+          "row": 7,
+          "col": 8
         },
-        "length": 8,
-        "reference_year_range": [
-          0,
-          0
-        ],
-        "difficulty": 3
-      },
-      {
-        "id": "6-across",
-        "direction": "across",
-        "number": 6,
-        "prompt": "Artisan des goûts et des saveurs en cuisine.",
-        "answer": "CUISINIER",
-        "start": {
-          "row": 11,
-          "col": 0
-        },
-        "length": 9,
-        "reference_year_range": [
-          0,
-          0
-        ],
-        "difficulty": 3
-      },
-      {
-        "id": "7-across",
-        "direction": "across",
-        "number": 7,
-        "prompt": "Morceau de viande aplati, souvent cuit à la poêle.",
-        "answer": "ESCALOPE",
-        "start": {
-          "row": 13,
-          "col": 2
-        },
-        "length": 8,
+        "length": 3,
         "reference_year_range": [
           0,
           0
@@ -833,14 +492,48 @@
     ],
     "down": [
       {
+        "id": "6-down",
+        "direction": "down",
+        "number": 6,
+        "prompt": "Unité monétaire ancienne et symbole de petite somme.",
+        "answer": "SOU",
+        "start": {
+          "row": 3,
+          "col": 0
+        },
+        "length": 3,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
+        "id": "7-down",
+        "direction": "down",
+        "number": 7,
+        "prompt": "Degré de qualité ou d'intensité, à atteindre dans un plat réussi.",
+        "answer": "NIVEAU",
+        "start": {
+          "row": 2,
+          "col": 2
+        },
+        "length": 6,
+        "reference_year_range": [
+          0,
+          0
+        ],
+        "difficulty": 3
+      },
+      {
         "id": "8-down",
         "direction": "down",
         "number": 8,
-        "prompt": "Personnalité politique à la tête d'une ville.",
-        "answer": "MAIRE",
+        "prompt": "Éprouver une affection ou une préférence pour un plat.",
+        "answer": "AIMER",
         "start": {
-          "row": 9,
-          "col": 2
+          "row": 3,
+          "col": 5
         },
         "length": 5,
         "reference_year_range": [
@@ -853,13 +546,13 @@
         "id": "9-down",
         "direction": "down",
         "number": 9,
-        "prompt": "Expression d'un désir ou d'une aspiration.",
-        "answer": "VOEU",
+        "prompt": "Ce qui peut capturer ou tromper, même lors d'une recette.",
+        "answer": "PIEGE",
         "start": {
-          "row": 4,
-          "col": 4
+          "row": 2,
+          "col": 7
         },
-        "length": 4,
+        "length": 5,
         "reference_year_range": [
           0,
           0
@@ -870,13 +563,13 @@
         "id": "10-down",
         "direction": "down",
         "number": 10,
-        "prompt": "Accessoire de table pour s'essuyer durant le repas.",
-        "answer": "SERVIETTE",
+        "prompt": "Préparation culinaire souvent à base de céréales pour enfants.",
+        "answer": "BOUILLIE",
         "start": {
-          "row": 3,
-          "col": 7
+          "row": 1,
+          "col": 9
         },
-        "length": 9,
+        "length": 8,
         "reference_year_range": [
           0,
           0
@@ -887,30 +580,13 @@
         "id": "11-down",
         "direction": "down",
         "number": 11,
-        "prompt": "Cet aliment est souvent présenté en coque ou sur le plat.",
-        "answer": "OEUF",
+        "prompt": "Mot souvent utilisé en fin de phrase pour exprimer une demande de clarification.",
+        "answer": "QUOI",
         "start": {
-          "row": 8,
+          "row": 1,
           "col": 11
         },
         "length": 4,
-        "reference_year_range": [
-          0,
-          0
-        ],
-        "difficulty": 3
-      },
-      {
-        "id": "12-down",
-        "direction": "down",
-        "number": 12,
-        "prompt": "Ce phénomène destructeur peut réduire en cendres un bâtiment.",
-        "answer": "INCENDIE",
-        "start": {
-          "row": 0,
-          "col": 13
-        },
-        "length": 8,
         "reference_year_range": [
           0,
           0
@@ -921,15 +597,13 @@
   },
   "metadata": {
     "theme_tags": [
-      "GASTRONOMIE",
+      "CUISINE",
       "RECETTE",
       "CHEF",
-      "CUISINE",
-      "SAVEUR",
       "PLAT",
       "INGREDIENT"
     ],
-    "notes": "Découvrez les saveurs et techniques de la cuisine française"
+    "notes": "Plats et ingrédients emblématiques de la cuisine française"
   },
-  "created_at": "2026-01-13T03:38:23.482317+01:00"
+  "created_at": "2026-01-13T10:39:31.123976+01:00"
 }
